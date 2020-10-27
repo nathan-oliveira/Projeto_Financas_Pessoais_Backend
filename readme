@@ -1,0 +1,16 @@
+===== dependencies =====
+npm i typeorm reflect-metadata mysql jsonwebtoken body-parser express-async-errors express dotenv bcrypt
+
+===== devDependencies =====
+npm i -D @types/bcrypt @types/express @types/jsonwebtoken @typescript-eslint/eslint-plugin
+
+npm i -D @typescript-eslint/parser @types/node eslint eslint-config-airbnb-base
+
+npm i -D eslint-config-prettier eslint-import-resolver-typescript eslint-plugin-import
+
+npm i -D eslint-plugin-prettier prettier ts-node-dev ts-node nodemon typescript
+
+===== typeorm =====
+yarn typeorm migration:create -n CreateUsers
+
+yarn typeorm migration:run
