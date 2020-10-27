@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node app/index.ts",
+    "start": "tsc && ts-node dist/index.js",
     "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules app/index.ts",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
   },
