@@ -1,9 +1,9 @@
 {
   "watch": [
-    "src"
+    "app"
   ],
   "ext": "ts",
-  "execMap" : {
+  "execMap": {
     "ts": "ts-node app/index.ts"
   }
 }

@@ -1,16 +1,25 @@
-===== dependencies =====
+################### Sistema de Finanças Pessoais ###################
+
+=========================== Users Free =============================
+Podera Adicionar receita (valor, categoria, descrição, data, hora)
+Podera Adicionar despesa (valor, categoria, descrição, data, hora)
+Podera Criar Categoria (nome, icone)
+Podera Visualizar Relatórios (Economia Mensal)
+Podera fazer operacoes Automaticas (de receita ou despesa)
+Podera criar metas de despesas (Categoria, valor descricao)
+====================================================================
+
+
+========================== Dependencies ============================
 npm i typeorm reflect-metadata mysql jsonwebtoken body-parser express-async-errors express dotenv bcrypt
-
-===== devDependencies =====
+========================== DevDependencies =========================
 npm i -D @types/bcrypt @types/express @types/jsonwebtoken @typescript-eslint/eslint-plugin
-
 npm i -D @typescript-eslint/parser @types/node eslint eslint-config-airbnb-base
-
 npm i -D eslint-config-prettier eslint-import-resolver-typescript eslint-plugin-import
-
 npm i -D eslint-plugin-prettier prettier ts-node-dev ts-node nodemon typescript
-
-===== typeorm =====
+========================== TypeORM =================================
 yarn typeorm migration:create -n CreateUsers
+yarn typeorm migration:create -n CreateCategory
 
 yarn typeorm migration:run
+====================================================================

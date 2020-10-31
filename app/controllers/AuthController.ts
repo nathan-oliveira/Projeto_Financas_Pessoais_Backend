@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { UserService } from "../services";
-import Middlewares from "../middlewares"
+import Util from "../middlewares"
 
 import * as bcrypt from "bcrypt";
 
@@ -49,7 +49,7 @@ export class AuthController {
 
     if (result.length === 1) {
       if (await bcrypt.compare(password, result[0].password)) {
-        return res.json(Middlewares.createToken(result[0]));
+        return res.json(Util.createToken(result[0]));
       } else {
         return res.status(404).json({ message: "Usuário não encontrado." })
       }
@@ -57,4 +57,5 @@ export class AuthController {
       return res.status(404).json({ message: "Usuário não encontrado." })
     }
   }
+
 }
