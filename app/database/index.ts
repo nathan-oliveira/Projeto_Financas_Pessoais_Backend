@@ -5,5 +5,5 @@ createConnection()
     console.log('Banco de dados ON')
   })
   .catch(error => {
-    console.log('Banco de dados OFF')
+    console.log('Banco de dados OFF');
   })

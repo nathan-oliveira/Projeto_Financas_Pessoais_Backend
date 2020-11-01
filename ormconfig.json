@@ -5,7 +5,7 @@
   "username": "root",
   "password": "",
   "database": "node_vue",
-  "synchronize": true,
+  "synchronize": false,
   "loggin": false,
   "entities": [
     "./app/models/*.ts"

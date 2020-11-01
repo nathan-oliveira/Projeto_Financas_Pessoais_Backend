@@ -7,7 +7,19 @@ export class CategoryRepository extends Repository<CategoryDAO> {
     return this.manager.save(CategoryDAO, { name, icon })
   }
 
-  public getCategory(id: number): Promise<CategoryDAO[]> {
+  public getAll(): Promise<CategoryDAO[]> {
+    return this.manager.find(CategoryDAO)
+  }
+
+  public getById(id: number): Promise<CategoryDAO[]> {
     return this.manager.find(CategoryDAO, { where: { id } });
+  }
+
+  public updated(id: number, data: object): Promise<object> {
+    return this.manager.update(CategoryDAO, id, data);
+  }
+
+  public async deleted(id: number): Promise<object> {
+    return this.manager.delete(CategoryDAO, { id });
   }
 }
