@@ -7,8 +7,13 @@ export class UserRepository extends Repository<UserDAO> {
     return this.manager.find(UserDAO, { where: { email } })
   }
 
-  public saveUser(name: string, email: string, password: string): Promise<object> {
-    return this.manager.save(UserDAO, { name, email, password })
+  public async saveUser(user: object): Promise<UserDAO[] | object> {
+    try {
+      return await this.manager.save(UserDAO, user);
+    } catch (error) {
+      throw { message: "Usuário já cadastrado." };
+    }
+
   }
 
   public getUser(id: number): Promise<UserDAO[]> {

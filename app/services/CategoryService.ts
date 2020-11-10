@@ -3,23 +3,23 @@ import { CategoryDAO } from "../models";
 import { CategoryRepository } from "../repository";
 
 export class CategoryService {
-  public save(name: string, icon: string): Promise<object> {
+  static save(name: string, icon: string): Promise<object> {
     return getCustomRepository(CategoryRepository).saveCategory(name, icon);
   }
 
-  public getAll(): Promise<CategoryDAO[]> {
+  static getAll(): Promise<CategoryDAO[]> {
     return getCustomRepository(CategoryRepository).getAll();
   }
 
-  public getById(id: number): Promise<CategoryDAO[]> {
+  static getById(id: number): Promise<CategoryDAO[]> {
     return getCustomRepository(CategoryRepository).getById(id);
   }
 
-  public updated(id: number, data: object): Promise<any> {
+  static updated(id: number, data: object): Promise<any> {
     return getCustomRepository(CategoryRepository).updated(id, data);
   }
 
-  public deleted(id: number): Promise<any> {
+  static deleted(id: number): Promise<any> {
     return getCustomRepository(CategoryRepository).deleted(id);
   }
 }

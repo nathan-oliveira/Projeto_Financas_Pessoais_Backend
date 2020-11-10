@@ -4,8 +4,8 @@ import Util from "../middlewares"
 
 const routes = Router();
 
-routes.post('/session', AuthController.prototype.login)
-routes.post('/users', AuthController.prototype.create)
-routes.get('/users/:id', Util.AuthVerify, AuthController.prototype.getUser)
+routes.post('/session', AuthController.login)
+routes.post('/users', AuthController.create)
+routes.get('/users/:id', Util.AuthVerify, AuthController.getUser)
 
 export default routes;

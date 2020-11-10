@@ -11,41 +11,35 @@ interface IUsers {
 }
 
 export class AuthController {
-  public async create(req: Request, res: Response): Promise<Response> {
+  static async create(req: Request, res: Response): Promise<Response> {
     const { name, email, password } = req.body as IUsers;
-    const passwordHash = await bcrypt.hash(req.body.password, 8);
-
-    const userExist = await UserService.prototype.userExist(email)
-
-    if (userExist[0]) return res.status(422).json({ message: "Usuário já cadastrado." });
-
-    if (!name || !email || !password) return res.status(422).json({ message: "Favor preencha todos os campos de cadastro." })
+    const passwordHash = await bcrypt.hash(password, 8);
 
     try {
-      const result = await UserService.prototype.save(name, email, passwordHash);
+      const result = await UserService.save(name, email, passwordHash);
       return res.status(200).json(result);
     } catch (err) {
-      return res.status(404).json({ message: "Não foi possível realizar o Cadastro." });
+      return res.status(404).json(err);
     }
   }
 
-  public async getUser(req: Request, res: Response): Promise<Response> {
+  static async getUser(req: Request, res: Response): Promise<Response> {
     const { id } = req.params as unknown as { id: number };
 
     try {
-      const result = await UserService.prototype.getUser(id)
+      const result = await UserService.getUser(id)
       return res.status(200).json(result);
     } catch (err) {
-      return res.status(404).json({ message: "Usuário não encontrado." });
+      return res.status(404).json(err);
     }
   }
 
-  public async login(req: Request, res: Response): Promise<Response> {
+  static async login(req: Request, res: Response): Promise<Response> {
     const { email, password } = req.body as { email: string; password: string; };
 
     if (!email || !password) return res.status(422).json({ message: "Favor preencha todos os campos de cadastro." })
 
-    const result = await UserService.prototype.userExist(email);
+    const result = await UserService.userExist(email);
 
     if (result.length === 1) {
       if (await bcrypt.compare(password, result[0].password)) {
