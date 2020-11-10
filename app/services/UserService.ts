@@ -4,8 +4,9 @@ import { UserDAO } from "../models";
 import { UserRepository } from "../repository";
 
 export class UserService {
-  static userExist(email: string): Promise<UserDAO[]> {
-    return getCustomRepository(UserRepository).userExist(email);
+  static async userExist(email: string, password: string): Promise<UserDAO[]> {
+    if (!email || !password) throw { message: "Favor preencha todos os campos de cadastro." };
+    return await getCustomRepository(UserRepository).userExist(email);
   }
 
   static async save(name: string, email: string, password: string): Promise<UserDAO[] | object> {

@@ -2,8 +2,6 @@ import { Request, Response } from "express";
 import { UserService } from "../services";
 import Util from "../middlewares"
 
-import * as bcrypt from "bcrypt";
-
 interface IUsers {
   name: string;
   email: string;
@@ -13,7 +11,7 @@ interface IUsers {
 export class AuthController {
   static async create(req: Request, res: Response): Promise<Response> {
     const { name, email, password } = req.body as IUsers;
-    const passwordHash = await bcrypt.hash(password, 8);
+    const passwordHash = await Util.CreatePasswordHash(password);
 
     try {
       const result = await UserService.save(name, email, passwordHash);
@@ -34,22 +32,14 @@ export class AuthController {
     }
   }
 
-  static async login(req: Request, res: Response): Promise<Response> {
+  static async login(req: Request, res: Response): Promise<Response | object> {
     const { email, password } = req.body as { email: string; password: string; };
 
-    if (!email || !password) return res.status(422).json({ message: "Favor preencha todos os campos de cadastro." })
-
-    const result = await UserService.userExist(email);
-
-    if (result.length === 1) {
-      if (await bcrypt.compare(password, result[0].password)) {
-        return res.json(Util.createToken(result[0]));
-      } else {
-        return res.status(404).json({ message: "Usuário não encontrado." })
-      }
-    } else {
-      return res.status(404).json({ message: "Usuário não encontrado." })
+    try {
+      const result = await UserService.userExist(email, password);
+      return res.status(200).json(await Util.ComparePasswordHash(password, result[0]));
+    } catch (err) {
+      return res.status(404).json(err)
     }
   }
-
 }

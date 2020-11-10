@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import * as jwt from "jsonwebtoken";
+import * as bcrypt from "bcrypt";
 
 interface IJwT {
   id: number;
@@ -34,5 +35,17 @@ export default class Middlewares {
     } catch (error) {
       return res.status(401).json({ message: 'Token invalid!' })
     }
+  }
+
+  static async CreatePasswordHash(password: string) {
+    return await bcrypt.hash(password, 8);
+  }
+
+  static async ComparePasswordHash(password: string, user: any) {
+    if (!user) throw { message: "Usuário e/ou senha inválidos." };
+    const compareUser = await bcrypt.compare(password, user.password);
+    if (!compareUser) throw { message: "Usuário e/ou senha inválidos." }
+
+    return this.createToken(user);
   }
 }
