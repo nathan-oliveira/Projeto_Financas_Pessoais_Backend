@@ -1,9 +1,10 @@
 import { getCustomRepository } from "typeorm";
 import { validate } from "class-validator";
 
+import AppError from '../config/AppError';
 import { UserDAO } from "../models";
 import { UserRepository } from "../repository";
-import AppError from '../config/AppError';
+
 
 export class UserService {
   static async userExist(email: string, password: string): Promise<UserDAO[]> {
