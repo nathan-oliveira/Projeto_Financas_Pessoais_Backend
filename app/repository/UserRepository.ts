@@ -1,5 +1,6 @@
 import { EntityRepository, Repository } from "typeorm";
 import { UserDAO } from "../models";
+import AppError from '../config/AppError';
 
 @EntityRepository(UserDAO)
 export class UserRepository extends Repository<UserDAO> {
@@ -11,7 +12,7 @@ export class UserRepository extends Repository<UserDAO> {
     try {
       return await this.manager.save(UserDAO, user);
     } catch (err) {
-      throw { message: "Usuário já cadastrado." };
+      throw new AppError("Usuário já cadastrado.", 400);
     }
   }
 

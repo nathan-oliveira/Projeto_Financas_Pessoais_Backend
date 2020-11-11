@@ -2,6 +2,8 @@ import { Request, Response, NextFunction } from "express";
 import * as jwt from "jsonwebtoken";
 import * as bcrypt from "bcrypt";
 
+import AppError from '../config/AppError';
+
 interface IJwT {
   id: number;
   name: string;
@@ -25,7 +27,7 @@ export default class Middlewares {
   static async AuthVerify(req: Request, res: Response, next: NextFunction) {
     const authHeader = req.headers.authorization
 
-    if (!authHeader) return res.status(401).json({ message: 'Token is required!' })
+    if (!authHeader) throw new AppError("Token is required!", 400);
 
     const [, token] = authHeader.split(' ')
 
@@ -33,7 +35,7 @@ export default class Middlewares {
       await jwt.verify(token, process.env.APP_SECRET || 'secret')
       next()
     } catch (error) {
-      return res.status(401).json({ message: 'Token invalid!' })
+      throw new AppError("Token invalid!", 400);
     }
   }
 
@@ -42,10 +44,10 @@ export default class Middlewares {
   }
 
   static async ComparePasswordHash(password: string, user: any) {
-    if (!user) throw { message: "Usuário e/ou senha inválidos." };
+    if (!user) throw new AppError("Usuário e/ou senha inválidos.", 400);
     const compareUser = await bcrypt.compare(password, user.password);
-    if (!compareUser) throw { message: "Usuário e/ou senha inválidos." }
 
+    if (!compareUser) throw new AppError("Usuário e/ou senha inválidos.", 400);
     return this.createToken(user);
   }
 }

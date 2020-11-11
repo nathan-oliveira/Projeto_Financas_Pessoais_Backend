@@ -1,11 +1,13 @@
 import { getCustomRepository } from "typeorm";
 import { validate } from "class-validator";
+
 import { UserDAO } from "../models";
 import { UserRepository } from "../repository";
+import AppError from '../config/AppError';
 
 export class UserService {
   static async userExist(email: string, password: string): Promise<UserDAO[]> {
-    if (!email || !password) throw { message: "Favor preencha todos os campos de cadastro." };
+    if (!email || !password) throw new AppError("Favor preencha todos os campos de cadastro.", 400);
     return await getCustomRepository(UserRepository).userExist(email);
   }
 
@@ -19,7 +21,7 @@ export class UserService {
 
   static async getUser(id: number): Promise<UserDAO[]> {
     const user = await getCustomRepository(UserRepository).getUser(id);
-    if (user.length === 0) throw { message: "Usuário não encontrado." };
+    if (user.length === 0) throw new AppError("Usuário não encontrado.", 400);
     return user;
   }
 }
