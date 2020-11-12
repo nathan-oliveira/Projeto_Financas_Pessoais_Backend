@@ -21,16 +21,12 @@ export class CategoryRepository extends Repository<CategoryDAO> {
   }
 
   public async updated(id: number, data: object): Promise<object> {
-    const category = await this.manager.update(CategoryDAO, id, data);
-
-    if (category.affected === 0) throw new AppError("Não foi possível atualizar a categoria.", 400);
+    await this.manager.update(CategoryDAO, id, data);
     return { message: 'Categoria atualizada com sucesso!' }
   }
 
   public async deleted(id: number): Promise<object> {
-    const category = await this.manager.delete(CategoryDAO, { id });
-
-    if (category.affected === 0) throw new AppError("Não foi possível excluir a categoria.", 400);
+    await this.manager.delete(CategoryDAO, { id });
     return { message: 'Categoria excluida com sucesso!' };
   }
 }
