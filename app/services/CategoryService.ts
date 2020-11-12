@@ -27,7 +27,7 @@ export class CategoryService {
 
   static async updated(id: number, data: object): Promise<CategoryDAO[] | object> {
     await this.getById(id);
-    return getCustomRepository(CategoryRepository).updated(id, data);
+    return await getCustomRepository(CategoryRepository).updated(id, data);
   }
 
   static async deleted(id: number): Promise<any> {
