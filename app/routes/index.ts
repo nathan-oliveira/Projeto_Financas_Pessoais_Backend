@@ -1,16 +1,9 @@
-import { Router, Request, Response } from 'express';
+import { AuthRouter } from "./AuthRouter"
 
-import authRouter from "./AuthRouter"
-import categoryRouter from "./CategoryRouter"
+export class IndexRouter {
+  public authRouter: AuthRouter = new AuthRouter();
 
-const routes = Router();
-
-routes.get('/', (req: Request, res: Response) => {
-  return res.json({ message: 'API ON' });
-})
-
-routes
-  .use('/', authRouter)
-  .use('/', categoryRouter);
-
-export default routes;
+  public index(app: any) {
+    return this.authRouter.routes(app);
+  }
+}

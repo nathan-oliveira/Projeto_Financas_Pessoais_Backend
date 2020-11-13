@@ -1,11 +1,12 @@
-import { Router } from "express";
 import { AuthController } from "../controllers";
-import Util from "../middlewares"
+import Util from "../middlewares";
 
-const routes = Router();
+export class AuthRouter {
+  public authController: AuthController = new AuthController();
 
-routes.post('/session', AuthController.login)
-routes.post('/users', AuthController.create)
-routes.get('/users/:id', Util.AuthVerify, AuthController.getUser)
-
-export default routes;
+  public routes(app: any): void {
+    app.post('/session', this.authController.login)
+    app.post('/users', this.authController.create)
+    app.get('/users/:id', Util.AuthVerify, this.authController.getUser)
+  }
+}

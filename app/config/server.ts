@@ -6,11 +6,12 @@ import express, { Request, Response, NextFunction } from 'express';
 import * as bp from 'body-parser';
 
 import '../database';
-import routes from '../routes';
+import { IndexRouter } from '../routes';
 import AppError from '../config/AppError';
 
 class Server {
   public app: express.Application;
+  public routes: IndexRouter = new IndexRouter();
 
   constructor() {
     this.app = express();
@@ -22,7 +23,7 @@ class Server {
     this.app.disable('x-powered-by');
     this.app.use(bp.urlencoded({ extended: true }));
     this.app.use(bp.json({ limit: '20mb' }));
-    this.app.use(routes);
+    this.routes.index(this.app);
     this.app.set('port', 4000);
   }
 
