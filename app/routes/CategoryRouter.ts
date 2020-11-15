@@ -4,7 +4,7 @@ import Util from "../middlewares";
 export class CategoryRouter {
   public categoryController: CategoryController = new CategoryController();
 
-  public routes(app: any) {
+  public routes(app: any): void {
     app.post('/category', Util.AuthVerify, this.categoryController.create);
     app.get('/category', Util.AuthVerify, this.categoryController.getAll);
     app.get('/category/:id', Util.AuthVerify, this.categoryController.getById);
