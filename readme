@@ -35,3 +35,12 @@ yarn typeorm migration:create -n CreateCategory
 
 yarn typeorm migration:run
 ====================================================================
+
+
+
+========================== TDD Mocha ==========================
+npm install -g mocha
+npm install -g chai
+
+npm i -D chai mocha @types/chai @types/mocha
+npm i -D supertest @types/supertest
