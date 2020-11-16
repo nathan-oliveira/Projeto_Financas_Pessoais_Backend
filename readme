@@ -1,13 +1,25 @@
 ################### Sistema de Finanças Pessoais ###################
 
 =========================== Users Free =============================
+Efetuar Login com usuário free no Aplicativo.
+Conseguir seguir cadastro com usuário solo, casal ou familia => com uma limitação de no máximo três pessoas.
+Coseguir editar seus proprios dados, do casal ou familia.
+Conseguir emitir um relatorio por mes de Receita e Despesa.
+
 Podera Adicionar receita (valor, categoria, descrição, data, hora)
 Podera Adicionar despesa (valor, categoria, descrição, data, hora)
 Podera Criar Categoria (nome, icone)
 Podera Visualizar Relatórios (Economia Mensal)
 Podera fazer operacoes Automaticas (de receita ou despesa)
 Podera criar metas de despesas (Categoria, valor descricao)
-====================================================================
+=========================== Admin Free =============================
+Efetuar Login como administrador no Aplicativo.
+
+Conseguir cadastrar limite de dispesas e receitas geradas por mês.
+Conseguir cadastrar Categorias padrões para todos os usuários do aplicativo.
+conseguir alterar seus proprios dados, e também alterar e excluir alguma conta.
+Conseguir alterar os dados relacionados ao aplicativo => manutenção, alterar dados de telefone, alterar e-mail, banners... 
+
 
 
 ========================== Dependencies ============================
