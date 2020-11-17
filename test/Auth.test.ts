@@ -23,6 +23,8 @@ describe("Validate user routes", () => {
         })
         .end((err: Error, res: request.Response) => {
           expect(res.status).to.equal(200)
+
+          expect(res.body).be.a('object')
           expect(res.body).to.have.property("name")
           expect(res.body).to.have.property("email")
           expect(res.body).to.have.property("password")

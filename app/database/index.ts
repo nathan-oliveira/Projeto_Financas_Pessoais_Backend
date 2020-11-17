@@ -1,5 +1,18 @@
 import { createConnection } from 'typeorm';
+import { UserDAO, CategoryDAO } from "../models"
 
-createConnection().catch(error => {
-  console.log('Banco de dados OFF');
+export const Connection = createConnection({
+  database: "node_vue",
+  entities: [
+    UserDAO,
+    CategoryDAO
+  ],
+  host: "localhost",
+  logging: false,
+  password: "",
+  port: 3306,
+  synchronize: true,
+  type: "mysql",
+  username: "root",
 })
+

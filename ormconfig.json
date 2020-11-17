@@ -8,7 +8,7 @@
   "synchronize": false,
   "loggin": false,
   "entities": [
-    "./app/models/*.ts"
+    "./app/models/*.{js,ts}"
   ],
   "migrations": [
     "./app/database/migrations/*.ts"

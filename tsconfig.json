@@ -18,5 +18,31 @@
   "exclude": [
     "node_modules",
     "./test"
-  ]
+  ],
+  "paths": {
+    "@config/*": [
+      "./app/config/*"
+    ],
+    "@controllers/*": [
+      "./app/controllers/*"
+    ],
+    "@database/*": [
+      "./app/database/*"
+    ],
+    "@middlewares/*": [
+      "./app/middlewares/*"
+    ],
+    "@models/*": [
+      "./app/models/*"
+    ],
+    "@repository/*": [
+      "./app/repository/*"
+    ],
+    "@routes/*": [
+      "./app/routes/*"
+    ],
+    "@services/*": [
+      "./app/services/index.ts"
+    ],
+  }
 }
