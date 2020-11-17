@@ -11,9 +11,13 @@ interface IUsers {
 export class AuthController {
   public async create(req: Request, res: Response): Promise<Response> {
     const { name, email, password } = req.body as IUsers;
-    const result = await UserService.save(name, email, await Util.CreatePasswordHash(password));
 
-    return res.status(200).json(result);
+    try {
+      const result = await UserService.save(name, email, await Util.CreatePasswordHash(password));
+      return res.status(200).json(result);
+    } catch (err) {
+      return res.status(400).json(err);
+    }
   }
 
   public async getUser(req: Request, res: Response): Promise<Response> {

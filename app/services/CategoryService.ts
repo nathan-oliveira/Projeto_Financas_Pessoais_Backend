@@ -10,7 +10,7 @@ export class CategoryService {
     const category = CategoryDAO.create({ name, icon });
     const errors = await validate(category);
 
-    if (errors.length > 0) return errors.map(v => v.constraints);
+    if (errors.length > 0) throw errors.map(v => v.constraints);
     return await getCustomRepository(CategoryRepository).saveCategory(category);
   }
 
@@ -25,7 +25,9 @@ export class CategoryService {
     return category;
   }
 
-  static async updated(id: number, data: object): Promise<CategoryDAO[] | object> {
+  static async updated(id: number, data: object | any): Promise<CategoryDAO[] | object> {
+    if (!data.name || !data.icon) throw new AppError("Favor preencha todos os campos.", 400);
+
     await this.getById(id);
     return await getCustomRepository(CategoryRepository).updated(id, data);
   }

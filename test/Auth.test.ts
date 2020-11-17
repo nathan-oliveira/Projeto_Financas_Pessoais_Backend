@@ -49,8 +49,8 @@ describe("Validate user routes", () => {
         .end((err: Error, res: request.Response) => {
           expect(res.status).to.equal(400);
 
-          expect(res.body).to.have.property("status");
           expect(res.body).to.have.property("message");
+          expect(res.body).to.have.property("statusCode");
 
           done();
         })

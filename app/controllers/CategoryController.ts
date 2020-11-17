@@ -4,9 +4,13 @@ import { CategoryService } from "../services"
 export class CategoryController {
   public async create(req: Request, res: Response): Promise<Response> {
     const { name, icon } = req.body;
-    const result = await CategoryService.save(name, icon);
 
-    return res.status(200).json(result);
+    try {
+      const result = await CategoryService.save(name, icon);
+      return res.status(200).json(result);
+    } catch (err) {
+      return res.status(400).json(err);
+    }
   }
 
   public async getAll(req: Request, res: Response): Promise<Response> {
@@ -23,9 +27,13 @@ export class CategoryController {
 
   public async update(req: Request, res: Response): Promise<Response | object> {
     const { id } = req.params as unknown as { id: number };
-    const result = await CategoryService.updated(id, req.body);
 
-    return res.status(200).json(result);
+    try {
+      const result = await CategoryService.updated(id, req.body);
+      return res.status(200).json(result);
+    } catch (err) {
+      return res.status(400).json(err);
+    }
   }
 
   public async delete(req: Request, res: Response): Promise<Response> {

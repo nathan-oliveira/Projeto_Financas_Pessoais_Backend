@@ -1,15 +1,14 @@
-import { CategoryDAO } from "../app/models"
 import request from "supertest";
 import { expect } from "chai";
 import app from "../app/config/server";
 
-let token: string = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjA1NTU1NjgxLCJleHAiOjE2MDU2NDIwODF9.O7fh7Q5RAoB7gLnH79eNhyspu8DgJJsCjO-Z5RcB7NM";
+let token: string = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDYsImlhdCI6MTYwNTU3NjMwNiwiZXhwIjoxNjA1NjYyNzA2fQ.Hc_U7qUZXf4Jf8SxrlY_eNhvwNbnrrFO7X_xcbFBZag";
 
 let idCategory: number;
 
 describe("Validate category routes", () => {
   describe("#POST /category", () => {
-    it("Create category", (done) => {
+    it("Create an category, return 200", (done) => {
       request(app).post("/category")
         .set("Authorization", `Bearer ${token}`)
         .set("Accept", "application/json")
@@ -24,6 +23,18 @@ describe("Validate category routes", () => {
           expect(res.body).to.have.property("icon");
 
           idCategory = res.body.id
+
+          done();
+        })
+    });
+
+    it("Validations when creating category, return 400", (done) => {
+      request(app).post("/category")
+        .set("Authorization", `Bearer ${token}`)
+        .set("Accept", "application/json")
+        .send({})
+        .end((err: Error, res: request.Response) => {
+          expect(res.status).to.equal(400);
 
           done();
         })
@@ -74,34 +85,67 @@ describe("Validate category routes", () => {
     });
   });
 
-  // put
-  /*
   describe("#PUT /category/:id", () => {
-
-  })
-  */
-  /*
-  describe("PUT /:id", () => {
-    it("should update the existing order and return 200", async () => {
-      const categoryDAO = new CategoryDAO({
-        name: "test",
-        email: "test@gmail.com",
-        gender: "male"
-      });
-      await user.save();
-
-      const res = await request(app)
-        .put("/api/users/" + user._id)
+    it("Update an account, return 200", (done) => {
+      request(app).put("/category/" + idCategory)
+        .set("Authorization", `Bearer ${token}`)
+        .set("Accept", "application/json")
         .send({
-          name: "newTest",
-          email: "newemail@gmail.com",
-          gender: "male"
-        });
+          "name": "Despesas",
+          "icon": "https://www.guarapuava.pr.gov.br/wp-content/uploads/2019/05/icon_despesas.png"
+        })
+        .end((err: Error, res: request.Response) => {
+          expect(res.status).to.equal(200);
 
-      expect(res.status).to.equal(200);
-      expect(res.body).to.have.property("name", "newTest");
+          expect(res.body).to.have.property("message");
+
+          done();
+        })
+    });
+
+    it("Category is invalid, return 400", (done) => {
+      request(app).put("/category/" + idCategory)
+        .set("Authorization", `Bearer ${token}`)
+        .set("Accept", "application/json")
+        .send({})
+        .end((err: Error, res: request.Response) => {
+          expect(res.status).to.equal(400);
+
+          expect(res.body).to.have.property("message");
+          expect(res.body).to.have.property("statusCode");
+
+          done();
+        });
+    });
+
+  });
+
+  describe("#DELETE /category/:id", () => {
+    it("Delete category", (done) => {
+      request(app).delete("/category/" + idCategory)
+        .set("Authorization", `Bearer ${token}`)
+        .set("Accept", "application/json")
+        .end((err: Error, res: request.Response) => {
+          expect(res.status).to.equal(200);
+
+          expect(res.body).to.have.property("message");
+
+          done();
+        });
+    });
+
+    it("Could not delete category", (done) => {
+      request(app).delete("/category/12121212121121")
+        .set("Authorization", `Bearer ${token}`)
+        .set("Accept", "application/json")
+        .end((err: Error, res: request.Response) => {
+          expect(res.status).to.equal(400);
+
+          expect(res.body).to.have.property("status");
+          expect(res.body).to.have.property("message");
+
+          done();
+        });
     });
   });
-  */
-  // delete
 });

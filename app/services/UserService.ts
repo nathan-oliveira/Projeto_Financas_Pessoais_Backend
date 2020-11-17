@@ -16,7 +16,7 @@ export class UserService {
     const user = UserDAO.create({ name, email, password });
     const errors = await validate(user);
 
-    if (errors.length > 0) return errors.map(v => v.constraints);
+    if (errors.length > 0) throw errors.map(v => v.constraints);
     return getCustomRepository(UserRepository).saveUser(user);
   }
 
