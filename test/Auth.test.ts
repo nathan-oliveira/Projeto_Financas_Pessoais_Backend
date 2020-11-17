@@ -55,6 +55,17 @@ describe("Validate user routes", () => {
           done();
         })
     });
+
+    it("Could not create user return 400", (done) => {
+      request(app).post("/users")
+        .set("Accept", "application/json")
+        .send({})
+        .end((err: Error, res: request.Response) => {
+          expect(res.status).to.equal(400);
+
+          done();
+        })
+    });
   });
 
   describe("#POST /session", () => {
