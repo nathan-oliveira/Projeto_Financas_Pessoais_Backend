@@ -6,14 +6,15 @@ interface IUsers {
   name: string;
   email: string;
   password: string;
+  password_confirmation: string;
 }
 
 export class AuthController {
   public async create(req: Request, res: Response): Promise<Response> {
-    const { name, email, password } = req.body as IUsers;
+    const { name, email, password, password_confirmation } = req.body as IUsers;
 
     try {
-      const result = await UserService.save(name, email, await Util.CreatePasswordHash(password));
+      const result = await UserService.save(name, email, await Util.CreatePasswordHash(password, password_confirmation));
       return res.status(200).json(result);
     } catch (err) {
       return res.status(400).json(err);
