@@ -18,7 +18,7 @@ Efetuar Login como administrador no Aplicativo.
 Conseguir cadastrar limite de dispesas e receitas geradas por mês.
 Conseguir cadastrar Categorias padrões para todos os usuários do aplicativo.
 conseguir alterar seus proprios dados, e também alterar e excluir alguma conta.
-Conseguir alterar os dados relacionados ao aplicativo => manutenção, alterar dados de telefone, alterar e-mail, banners... 
+Conseguir alterar os dados relacionados ao aplicativo => manutenção, alterar dados de telefone, alterar e-mail, banners...W
 
 
 
@@ -32,13 +32,10 @@ npm i -D eslint-plugin-prettier prettier ts-node-dev ts-node nodemon typescript
 ========================== TypeORM =================================
 yarn typeorm migration:create -n CreateUsers
 yarn typeorm migration:create -n CreateCategory
+yarn typeorm migration:create -n CreateGoals
 
 yarn typeorm migration:run
-====================================================================
-
-
-
-========================== TDD Mocha ==========================
+=========================== TDD Mocha ===============================
 npm install -g mocha
 npm install -g chai
 
