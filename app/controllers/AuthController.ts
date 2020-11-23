@@ -34,4 +34,8 @@ export class AuthController {
 
     return res.status(200).json(await Util.ComparePasswordHash(password, result[0]));
   }
+
+  public async validarToken(req: Request, res: Response) {
+    return res.status(200).json({ error: false })
+  }
 }

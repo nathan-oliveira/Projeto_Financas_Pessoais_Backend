@@ -1,12 +1,13 @@
 import { dirname } from 'path';
 import { createConnection } from 'typeorm';
-import { UserDAO, CategoryDAO } from "../models"
+import { UserDAO, CategoryDAO, GoalDAO } from "../models"
 
 export const Connection = createConnection({
   database: "node_vue",
   entities: [
     UserDAO,
-    CategoryDAO
+    CategoryDAO,
+    GoalDAO
   ],
   host: "localhost",
   logging: false,

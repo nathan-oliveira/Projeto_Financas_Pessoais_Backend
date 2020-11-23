@@ -11,8 +11,12 @@ import { IndexRouter } from '../routes';
 import AppError from '../config/AppError';
 
 class Server {
-  private static connectDB(): Promise<any> {
-    return Connection;
+  private static connectDB(): any {
+    Connection.then((resp) => {
+      return Connection;
+    }).catch((err) => {
+      return console.log('Banco de dados OFF')
+    })
   }
 
   public app: express.Application;
@@ -57,8 +61,6 @@ class Server {
 
   private errors(): void {
     this.app.use((err: Error, req: Request, res: Response, _: NextFunction) => {
-      console.log(err)
-
       if (err instanceof AppError) {
         return res.status(err.statusCode).json({
           status: 'error',

@@ -8,5 +8,6 @@ export class AuthRouter {
     app.post('/session', this.authController.login)
     app.post('/users', this.authController.create)
     app.get('/users/:id', Util.AuthVerify, this.authController.getUser)
+    app.post('/validarToken', Util.AuthVerify, this.authController.validarToken)
   }
 }
