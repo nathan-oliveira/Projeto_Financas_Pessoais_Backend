@@ -10,6 +10,12 @@ interface IJwT {
   email: string
 }
 
+interface IPayload {
+  id: number;
+  iat: number;
+  exp: number
+}
+
 export default class Middlewares {
   static createToken(result: IJwT) {
     const token = jwt.sign({ id: result.id }, process.env.APP_SECRET || 'secret', {
@@ -31,7 +37,8 @@ export default class Middlewares {
     const [, token] = authHeader.split(' ')
 
     try {
-      await jwt.verify(token, process.env.APP_SECRET || 'secret')
+      const payload = await jwt.verify(token, process.env.APP_SECRET || 'secret') as IPayload;
+      req.userId = payload.id;
       next()
     } catch (error) {
       throw new AppError("Token invalid!", 400);

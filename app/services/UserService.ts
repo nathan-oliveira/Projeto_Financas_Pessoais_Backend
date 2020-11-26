@@ -5,6 +5,11 @@ import AppError from '../config/AppError';
 import { UserDAO } from "../models";
 import { UserRepository } from "../repository";
 
+interface IUser {
+  name: string;
+  email: string;
+  active: boolean;
+}
 
 export class UserService {
   static async userExist(email: string, password: string): Promise<UserDAO[]> {
@@ -22,9 +27,14 @@ export class UserService {
     return getCustomRepository(UserRepository).saveUser(user);
   }
 
-  static async getUser(id: number): Promise<UserDAO[]> {
+  static async getUser(id: number): Promise<UserDAO[] | object> {
     const user = await getCustomRepository(UserRepository).getUser(id);
     if (user.length === 0) throw new AppError("Usuário não encontrado.", 400);
-    return user;
+
+    return {
+      name: user[0].name,
+      email: user[0].email,
+      active: user[0].active
+    } as IUser;
   }
 }
