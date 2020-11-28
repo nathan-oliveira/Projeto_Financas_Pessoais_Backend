@@ -10,4 +10,3 @@ export class IndexRouter {
     app.use(this.categoryRouter.router);
   }
 }
-

@@ -1,7 +1,6 @@
 import * as express from "express";
 
 export abstract class Controller {
-
   public req: express.Request;
   public res: express.Response;
 
@@ -9,5 +8,4 @@ export abstract class Controller {
     this.req = req;
     this.res = res;
   }
-
 }

@@ -11,7 +11,6 @@ interface IUsers {
 }
 
 export class AuthController extends Controller {
-
   constructor(req: Request, res: Response) {
     super(req, res);
   }
