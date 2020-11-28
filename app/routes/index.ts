@@ -5,8 +5,9 @@ export class IndexRouter {
   public authRouter: AuthRouter = new AuthRouter();
   public categoryRouter: CategoryRouter = new CategoryRouter();
 
-  public index(app: Function) {
-    this.authRouter.routes(app);
-    this.categoryRouter.routes(app);
+  public index(app: any) {
+    app.use(this.authRouter.router);
+    app.use(this.categoryRouter.router);
   }
 }
+
