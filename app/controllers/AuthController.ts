@@ -22,7 +22,8 @@ export class AuthController {
   }
 
   public async profile(req: Request, res: Response): Promise<Response> {
-    const result = await UserService.getUser(req.userId)
+    const { userId } = await req as unknown as { userId: number };
+    const result = await UserService.getUser(userId)
 
     return res.status(200).json(result);
   }
