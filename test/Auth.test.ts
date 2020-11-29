@@ -2,7 +2,6 @@ import request from "supertest";
 import { expect } from "chai";
 import app from "../app/config/server";
 
-let idUser: string;
 let emailUser: string;
 let token: string;
 
@@ -19,7 +18,8 @@ describe("Validate user routes", () => {
         .send({
           "name": "Nathan Olivera",
           "email": "nathan10@gmail.com",
-          "password": "123456"
+          "password": "123456",
+          "password_confirmation": "123456"
         })
         .end((err: Error, res: request.Response) => {
           expect(res.status).to.equal(200)
@@ -46,7 +46,8 @@ describe("Validate user routes", () => {
         .send({
           "name": "Nathan Olivera",
           "email": "nathan10@gmail.com",
-          "password": "123456"
+          "password": "123456",
+          "password_confirmation": "123456"
         })
         .end((err: Error, res: request.Response) => {
           expect(res.status).to.equal(400);
@@ -58,7 +59,7 @@ describe("Validate user routes", () => {
         })
     });
 
-    it("Could not create user return 400", (done) => {
+    it("Could not create user, return 400", (done) => {
       request(app).post("/users")
         .set("Accept", "application/json")
         .send({})
@@ -75,24 +76,22 @@ describe("Validate user routes", () => {
       request(app).post("/session")
         .set("Accept", "application/json")
         .send({
-          "email": "nathan10@gmail.com",
+          "email": "nathan2@gmail.com",
           "password": "123456"
         })
         .end((err: Error, res: request.Response) => {
           expect(res.status).to.equal(200);
-          expect(res.body).to.have.property("id");
           expect(res.body).to.have.property("name");
           expect(res.body).to.have.property("email");
           expect(res.body).to.have.property("token");
 
-          idUser = res.body.id;
           token = res.body.token;
 
           done();
         })
     });
 
-    it("Invalid username or password", (done) => {
+    it("Invalid username or password, return 400", (done) => {
       request(app).post("/session")
         .set("Accept", "application/json")
         .send({
@@ -109,31 +108,26 @@ describe("Validate user routes", () => {
         })
     });
   });
-
-  describe("#GET /users/:id", () => {
+  describe("#GET /profile", () => {
     it("Search account, return 200", (done) => {
-      request(app).get(`/users/${idUser}`)
+      request(app).get("/profile")
         .set("Authorization", `Bearer ${token}`)
         .set("Accept", "application/json")
         .end((err: Error, res: request.Response) => {
           expect(res.status).to.equal(200);
 
-          expect(res.body[0]).to.have.property("id");
           expect(res.body[0]).to.have.property("name");
           expect(res.body[0]).to.have.property("email");
-          expect(res.body[0]).to.have.property("password");
           expect(res.body[0]).to.have.property("active");
           expect(res.body[0]).to.have.property("nivel");
-          expect(res.body[0]).to.have.property("created_at");
-          expect(res.body[0]).to.have.property("updated_at");
 
           done();
         })
     });
 
     it("Invalid account search, return 400", (done) => {
-      request(app).get("/users/11111111")
-        .set("Authorization", `Bearer ${token}`)
+      request(app).get("/profile")
+        .set("Authorization", `Bearer x${token}x`)
         .set("Accept", "application/json")
         .end((err: Error, res: request.Response) => {
           expect(res.status).to.equal(400);

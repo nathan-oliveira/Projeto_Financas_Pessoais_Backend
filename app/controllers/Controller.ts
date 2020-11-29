@@ -8,4 +8,8 @@ export abstract class Controller {
     this.req = req;
     this.res = res;
   }
+
+  protected response(result: any) {
+    return this.res.status(result.statusCode).json(result.body)
+  }
 }

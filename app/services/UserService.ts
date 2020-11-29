@@ -34,7 +34,8 @@ export class UserService {
     return {
       name: user[0].name,
       email: user[0].email,
-      active: user[0].active
+      active: user[0].active,
+      nivel: user[0].nivel
     } as IUser;
   }
 }

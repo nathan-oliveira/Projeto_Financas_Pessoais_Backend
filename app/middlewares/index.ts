@@ -39,15 +39,15 @@ export default class Middlewares {
     try {
       const payload = await jwt.verify(token, process.env.APP_SECRET || 'secret') as IPayload;
       req.userId = payload.id;
-      next()
+      next();
     } catch (error) {
       throw new AppError("Token invalid!", 400);
     }
   }
 
   static async CreatePasswordHash(password: string, password_confirmation: string) {
-    if(!password || password.length < 6) throw new AppError("Favor preencha todos os campos de cadastro.", 400);
-    if(password !== password_confirmation) throw new AppError("O Campos Senha e Confirmar Senha devem ser iguais.", 400);
+    if (!password || password.length < 6) throw new AppError("Favor preencha todos os campos de cadastro.", 400);
+    if (password !== password_confirmation) throw new AppError("O Campos Senha e Confirmar Senha devem ser iguais.", 400);
 
     return await bcrypt.hash(password, 8);
   }

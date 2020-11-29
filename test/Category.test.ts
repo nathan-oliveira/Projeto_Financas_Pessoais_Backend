@@ -2,7 +2,7 @@ import request from "supertest";
 import { expect } from "chai";
 import app from "../app/config/server";
 
-let token: string = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDYsImlhdCI6MTYwNTU3NjMwNiwiZXhwIjoxNjA1NjYyNzA2fQ.Hc_U7qUZXf4Jf8SxrlY_eNhvwNbnrrFO7X_xcbFBZag";
+let token: string = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDYsImlhdCI6MTYwNjY2NjM2MiwiZXhwIjoxNjA2NzUyNzYyfQ.HvxR1tafulSjYg1gCjmdLnABZHHK6Zh65E6dQUnakmw";
 
 let idCategory: number;
 
