@@ -21,18 +21,18 @@ export class CategoryService {
   static async getById(id: number): Promise<CategoryDAO[]> {
     const category: CategoryDAO[] | undefined = await getCustomRepository(CategoryRepository).getById(id);
 
-    if (category.length === 0) throw new AppError("Categoria não encontrada.", 400);
+    if (category.length === 0) throw new AppError("Categoria não foi encontrada.", 400);
     return category;
   }
 
   static async updated(id: number, data: object | any): Promise<CategoryDAO[] | object> {
     if (!data.name || !data.icon) throw new AppError("Favor preencha todos os campos.", 400);
-
     await this.getById(id);
+
     return await getCustomRepository(CategoryRepository).updated(id, data);
   }
 
-  static async deleted(id: number): Promise<any> {
+  static async deleted(id: number): Promise<CategoryDAO[] | object> {
     await this.getById(id);
     return await getCustomRepository(CategoryRepository).deleted(id);
   }

@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 import { UserService } from "../services";
 import { Controller } from "./Controller"
 import Util from "../middlewares"
@@ -11,10 +11,6 @@ interface IUsers {
 }
 
 export class AuthController extends Controller {
-  constructor(req: Request, res: Response) {
-    super(req, res);
-  }
-
   public async create(): Promise<Response> {
     const { name, email, password, password_confirmation } = this.req.body as IUsers;
 
@@ -27,7 +23,7 @@ export class AuthController extends Controller {
   }
 
   public async profile(): Promise<Response> {
-    const { userId } = await this.req as unknown as { userId: number };
+    const { userId } = this.req as unknown as { userId: number };
     const result = await UserService.getUser(userId)
 
     return this.response({ statusCode: 200, body: result });

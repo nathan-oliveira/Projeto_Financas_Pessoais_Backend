@@ -11,7 +11,7 @@ import {
 
 import {
   IsNotEmpty,
-  Length
+  IsEnum
 } from "class-validator";
 
 import { UserDAO } from "./UserDAO"
@@ -27,15 +27,18 @@ export class GoalDAO extends BaseEntity {
   public id: number;
 
   @Column()
+  @IsNotEmpty({ message: "Descrição não pode ser vazio!" })
   public description: string;
 
   @Column({
     type: "enum",
     enum: ['receita', 'despesa']
   })
+  @IsEnum(['receita', 'despesa'], { message: "Tipo inválido!" })
   public types: Roles;
 
   @Column("decimal", { precision: 7, scale: 2 })
+  @IsNotEmpty({ message: "Valor não pode ser vazio!" })
   public money: number;
 
   @CreateDateColumn()

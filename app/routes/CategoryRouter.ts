@@ -3,13 +3,15 @@ import { CategoryController } from "../controllers";
 import Util from "../middlewares";
 
 export class CategoryRouter extends Router {
+  public categoryController: CategoryController = CategoryController.prototype;
+
   constructor() {
     super(CategoryController);
     this.router
-      .post('/category', Util.AuthVerify, this.routes(CategoryController.prototype.create))
-      .get('/category', Util.AuthVerify, this.routes(CategoryController.prototype.getAll))
-      .get('/category/:id', Util.AuthVerify, this.routes(CategoryController.prototype.getById))
-      .put('/category/:id', Util.AuthVerify, this.routes(CategoryController.prototype.update))
-      .delete('/category/:id', Util.AuthVerify, this.routes(CategoryController.prototype.delete));
+      .post('/category', Util.AuthVerify, this.routes(this.categoryController.create))
+      .get('/category', Util.AuthVerify, this.routes(this.categoryController.getAll))
+      .get('/category/:id', Util.AuthVerify, this.routes(this.categoryController.getById))
+      .put('/category/:id', Util.AuthVerify, this.routes(this.categoryController.update))
+      .delete('/category/:id', Util.AuthVerify, this.routes(this.categoryController.delete));
   }
 }
