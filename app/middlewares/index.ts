@@ -7,7 +7,8 @@ import AppError from '../config/AppError';
 interface IJwT {
   id: number;
   name: string;
-  email: string
+  email: string;
+  nivel: string;
 }
 
 interface IPayload {
@@ -22,9 +23,12 @@ export default class Middlewares {
       expiresIn: '1d'
     })
 
+    console.log();
+
     return {
       name: result.name,
       email: result.email,
+      nivel: result.nivel,
       token
     }
   }
