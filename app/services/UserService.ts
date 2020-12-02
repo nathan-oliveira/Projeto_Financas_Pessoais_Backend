@@ -27,6 +27,15 @@ export class UserService {
     return getCustomRepository(UserRepository).saveUser(user);
   }
 
+  static async updated(userId: number, data: object | any): Promise<UserDAO[] | object> {
+    delete data.password_confirmation;
+    await this.getUser(userId);
+
+    const updateUsuario = await getCustomRepository(UserRepository).updated(userId, data);
+    if(updateUsuario.raw.affectedRows !== 1)  throw new AppError("Usuário não encontrado.", 400);
+    return await this.getUser(userId);
+  }
+
   static async getUser(id: number): Promise<UserDAO[] | object> {
     const user = await getCustomRepository(UserRepository).getUser(id);
     if (user.length === 0) throw new AppError("Usuário não encontrado.", 400);

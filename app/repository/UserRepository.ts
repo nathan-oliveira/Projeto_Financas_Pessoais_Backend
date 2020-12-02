@@ -16,6 +16,11 @@ export class UserRepository extends Repository<UserDAO> {
     }
   }
 
+  public async updated(userId: number, data: object): Promise<UserDAO[] | object> {
+    return await this.manager.update(UserDAO, { id: userId }, data);
+    //return { message: 'Usuário atualizado com sucesso.' };
+  }
+
   public getUser(id: number): Promise<UserDAO[]> {
     return this.manager.find(UserDAO, { where: { id } });
   }

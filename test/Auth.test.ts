@@ -1,6 +1,7 @@
 import request from "supertest";
 import { expect } from "chai";
 import app from "../app/config/server";
+import Util from "../app/middlewares";
 
 let emailUser: string;
 let token: string;

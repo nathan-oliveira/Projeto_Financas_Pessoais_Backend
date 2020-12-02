@@ -37,6 +37,22 @@ export class AuthController extends Controller {
     return this.response({ statusCode: 200, body: result });
   }
 
+  public async update(): Promise<Response> {
+    const { userId } = this.req as unknown as { userId: number };
+
+    if (this.req.body.password) {
+      const { password, password_confirmation } = this.req.body;
+      this.req.body.password = await Util.CreatePasswordHash(password, password_confirmation);
+    }
+
+    try {
+      const result = await UserService.updated(userId, this.req.body);
+      return this.response({ statusCode: 200, body: result });
+    } catch (err) {
+      return this.response({ statusCode: 400, body: err });
+    }
+  }
+
   public async validarToken() {
     const result = { error: false };
     return this.response({ statusCode: 200, body: result });

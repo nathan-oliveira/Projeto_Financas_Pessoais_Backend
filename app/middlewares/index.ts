@@ -23,8 +23,6 @@ export default class Middlewares {
       expiresIn: '1d'
     })
 
-    console.log();
-
     return {
       name: result.name,
       email: result.email,
