@@ -1,13 +1,13 @@
 import { Response } from "express";
 import { CategoryService } from "../services";
-import { Controller } from "./Controller";
+import Controller from "./Controller";
 
 interface ICategory {
   name: string;
   icon: string;
 }
 
-export class CategoryController extends Controller {
+class CategoryController extends Controller {
   public async create(): Promise<Response> {
     const { name, icon } = this.req.body as ICategory;
 
@@ -25,14 +25,14 @@ export class CategoryController extends Controller {
   }
 
   public async getById(): Promise<Response> {
-    const { id } = this.req.params as unknown as { id: number };
-    const result = await CategoryService.getById(id)
+    const { id } = (this.req.params as unknown) as { id: number };
+    const result = await CategoryService.getById(id);
 
     return this.response({ statusCode: 200, body: result });
   }
 
   public async update(): Promise<Response> {
-    const { id } = this.req.params as unknown as { id: number };
+    const { id } = (this.req.params as unknown) as { id: number };
 
     try {
       const result = await CategoryService.updated(id, this.req.body);
@@ -43,9 +43,11 @@ export class CategoryController extends Controller {
   }
 
   public async delete(): Promise<Response> {
-    const { id } = this.req.params as unknown as { id: number };
+    const { id } = (this.req.params as unknown) as { id: number };
     const result = await CategoryService.deleted(id);
 
     return this.response({ statusCode: 200, body: result });
   }
 }
+
+export default CategoryController;

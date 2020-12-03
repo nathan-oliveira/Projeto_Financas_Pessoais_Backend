@@ -1,9 +1,5 @@
-import { AuthController } from "./AuthController";
-import { CategoryController } from "./CategoryController";
-import { GoalController } from "./GoalController";
+import AuthController from "./AuthController";
+import CategoryController from "./CategoryController";
+import GoalController from "./GoalController";
 
-export {
-  AuthController,
-  CategoryController,
-  GoalController
-}
+export { AuthController, CategoryController, GoalController };

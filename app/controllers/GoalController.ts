@@ -1,6 +1,6 @@
 import { Response } from "express";
-import { GoalService } from "../services/GoalService";
-import { Controller } from "./Controller";
+import { GoalService } from "../services";
+import Controller from "./Controller";
 
 interface IGoal {
   description: string;
@@ -9,10 +9,10 @@ interface IGoal {
   userId: number;
 }
 
-export class GoalController extends Controller {
+class GoalController extends Controller {
   public async create(): Promise<Response> {
-    const { userId } = this.req as unknown as { userId: number };
-    const dados = Object.assign({}, this.req.body, { userId }) as IGoal;
+    const { userId } = (this.req as unknown) as { userId: number };
+    const dados = { ...this.req.body, userId } as IGoal;
 
     try {
       const result = await GoalService.save(dados);
@@ -23,23 +23,23 @@ export class GoalController extends Controller {
   }
 
   public async getAll(): Promise<Response> {
-    const { userId } = this.req as unknown as { userId: number };
+    const { userId } = (this.req as unknown) as { userId: number };
     const result = await GoalService.getAll(userId);
 
     return this.response({ statusCode: 200, body: result });
   }
 
   public async getById(): Promise<Response> {
-    const { userId } = this.req as unknown as { userId: number };
-    const { id } = this.req.params as unknown as { id: number };
+    const { userId } = (this.req as unknown) as { userId: number };
+    const { id } = (this.req.params as unknown) as { id: number };
 
     const result = await GoalService.getById(userId, id);
     return this.response({ statusCode: 200, body: result });
   }
 
   public async update(): Promise<Response> {
-    const { userId } = this.req as unknown as { userId: number };
-    const { id } = this.req.params as unknown as { id: number };
+    const { userId } = (this.req as unknown) as { userId: number };
+    const { id } = (this.req.params as unknown) as { id: number };
 
     try {
       const result = await GoalService.updated(userId, id, this.req.body);
@@ -50,10 +50,12 @@ export class GoalController extends Controller {
   }
 
   public async delete(): Promise<Response> {
-    const { userId } = this.req as unknown as { userId: number };
-    const { id } = this.req.params as unknown as { id: number };
+    const { userId } = (this.req as unknown) as { userId: number };
+    const { id } = (this.req.params as unknown) as { id: number };
 
     const result = await GoalService.deleted(userId, id);
     return this.response({ statusCode: 200, body: result });
   }
 }
+
+export default GoalController;

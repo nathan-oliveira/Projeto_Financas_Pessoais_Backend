@@ -1,11 +1,11 @@
 import { EntityRepository, Repository } from "typeorm";
 import { UserDAO } from "../models";
-import AppError from '../config/AppError';
+import AppError from "../config/AppError";
 
 @EntityRepository(UserDAO)
-export class UserRepository extends Repository<UserDAO> {
+class UserRepository extends Repository<UserDAO> {
   public async userExist(email: string): Promise<UserDAO[]> {
-    return await this.manager.find(UserDAO, { where: { email } })
+    return await this.manager.find(UserDAO, { where: { email } });
   }
 
   public async saveUser(user: object): Promise<UserDAO[] | object> {
@@ -18,10 +18,11 @@ export class UserRepository extends Repository<UserDAO> {
 
   public async updated(userId: number, data: object): Promise<UserDAO[] | object> {
     return await this.manager.update(UserDAO, { id: userId }, data);
-    //return { message: 'Usuário atualizado com sucesso.' };
   }
 
   public getUser(id: number): Promise<UserDAO[]> {
     return this.manager.find(UserDAO, { where: { id } });
   }
 }
+
+export default UserRepository;

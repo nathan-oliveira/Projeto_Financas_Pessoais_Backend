@@ -5,12 +5,12 @@ import AppError from "../config/AppError";
 import { CategoryDAO } from "../models";
 import { CategoryRepository } from "../repository";
 
-export class CategoryService {
+class CategoryService {
   static async save(name: string, icon: string): Promise<object> {
     const category = CategoryDAO.create({ name, icon });
     const errors = await validate(category);
 
-    if (errors.length > 0) throw errors.map(v => v.constraints);
+    if (errors.length > 0) throw errors.map((v) => v.constraints);
     return await getCustomRepository(CategoryRepository).saveCategory(category);
   }
 
@@ -19,7 +19,9 @@ export class CategoryService {
   }
 
   static async getById(id: number): Promise<CategoryDAO[]> {
-    const category: CategoryDAO[] | undefined = await getCustomRepository(CategoryRepository).getById(id);
+    const category: CategoryDAO[] | undefined = await getCustomRepository(
+      CategoryRepository
+    ).getById(id);
 
     if (category.length === 0) throw new AppError("Categoria não foi encontrada.", 400);
     return category;
@@ -37,3 +39,5 @@ export class CategoryService {
     return await getCustomRepository(CategoryRepository).deleted(id);
   }
 }
+
+export default CategoryService;

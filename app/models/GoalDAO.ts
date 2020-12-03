@@ -6,23 +6,15 @@ import {
   ManyToOne,
   JoinColumn,
   CreateDateColumn,
-  UpdateDateColumn
-} from "typeorm"
+  UpdateDateColumn,
+} from "typeorm";
 
-import {
-  IsNotEmpty,
-  IsEnum
-} from "class-validator";
+import { IsNotEmpty, IsEnum } from "class-validator";
 
-import { UserDAO } from "./UserDAO"
+import UserDAO from "./UserDAO";
 
-enum Roles {
-  receita,
-  despesa
-}
-
-@Entity('goals')
-export class GoalDAO extends BaseEntity {
+@Entity("goals")
+class GoalDAO extends BaseEntity {
   @PrimaryGeneratedColumn()
   public id: number;
 
@@ -32,10 +24,10 @@ export class GoalDAO extends BaseEntity {
 
   @Column({
     type: "enum",
-    enum: ['receita', 'despesa']
+    enum: ["receita", "despesa"],
   })
-  @IsEnum(['receita', 'despesa'], { message: "Tipo inválido!" })
-  public types: Roles;
+  @IsEnum(["receita", "despesa"], { message: "Tipo inválido!" })
+  public types: string;
 
   @Column("decimal", { precision: 7, scale: 2 })
   @IsNotEmpty({ message: "Valor não pode ser vazio!" })
@@ -48,10 +40,12 @@ export class GoalDAO extends BaseEntity {
   public updated_at: Date;
 
   @ManyToOne((type: any) => UserDAO, (user: any) => user.id)
-  @JoinColumn({ name: 'userId' })
+  @JoinColumn({ name: "userId" })
   public userId: UserDAO;
 
   // @OneToOne((type: any) => UserDAO)
   // @JoinColumn({ name: 'userId' })
   // public userId: UserDAO
 }
+
+export default GoalDAO;

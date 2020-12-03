@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import * as jwt from "jsonwebtoken";
 import * as bcrypt from "bcrypt";
 
-import AppError from '../config/AppError';
+import AppError from "../config/AppError";
 
 interface IJwT {
   id: number;
@@ -14,32 +14,32 @@ interface IJwT {
 interface IPayload {
   id: number;
   iat: number;
-  exp: number
+  exp: number;
 }
 
 export default class Middlewares {
   static createToken(result: IJwT) {
-    const token = jwt.sign({ id: result.id }, process.env.APP_SECRET || 'secret', {
-      expiresIn: '1d'
-    })
+    const token = jwt.sign({ id: result.id }, process.env.APP_SECRET || "secret", {
+      expiresIn: "1d",
+    });
 
     return {
       name: result.name,
       email: result.email,
       nivel: result.nivel,
-      token
-    }
+      token,
+    };
   }
 
   static async AuthVerify(req: Request, res: Response, next: NextFunction) {
-    const authHeader = req.headers.authorization
+    const authHeader = req.headers.authorization;
 
     if (!authHeader) throw new AppError("Token is required!", 400);
 
-    const [, token] = authHeader.split(' ')
+    const [, token] = authHeader.split(" ");
 
     try {
-      const payload = await jwt.verify(token, process.env.APP_SECRET || 'secret') as IPayload;
+      const payload = (await jwt.verify(token, process.env.APP_SECRET || "secret")) as IPayload;
       req.userId = payload.id;
       next();
     } catch (error) {
@@ -48,8 +48,10 @@ export default class Middlewares {
   }
 
   static async CreatePasswordHash(password: string, password_confirmation: string) {
-    if (!password || password.length < 6) throw new AppError("Favor preencha todos os campos de cadastro.", 400);
-    if (password !== password_confirmation) throw new AppError("O Campos Senha e Confirmar Senha devem ser iguais.", 400);
+    if (!password || password.length < 6)
+      throw new AppError("Favor preencha todos os campos de cadastro.", 400);
+    if (password !== password_confirmation)
+      throw new AppError("O Campos Senha e Confirmar Senha devem ser iguais.", 400);
 
     return await bcrypt.hash(password, 8);
   }

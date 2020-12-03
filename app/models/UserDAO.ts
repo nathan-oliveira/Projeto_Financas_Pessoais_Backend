@@ -4,17 +4,13 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  Column
-} from "typeorm"
+  Column,
+} from "typeorm";
 
-import {
-  IsEmail,
-  IsNotEmpty,
-  Length
-} from "class-validator";
+import { IsEmail, IsNotEmpty, Length } from "class-validator";
 
-@Entity('users')
-export class UserDAO extends BaseEntity {
+@Entity("users")
+class UserDAO extends BaseEntity {
   @PrimaryGeneratedColumn()
   public id: number;
 
@@ -44,3 +40,5 @@ export class UserDAO extends BaseEntity {
   @UpdateDateColumn()
   public updated_at: Date;
 }
+
+export default UserDAO;

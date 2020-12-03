@@ -1,17 +1,9 @@
-import {
-  BaseEntity,
-  Entity,
-  PrimaryGeneratedColumn,
-  Column
-} from "typeorm"
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
-import {
-  IsNotEmpty,
-  Length
-} from "class-validator";
+import { IsNotEmpty, Length } from "class-validator";
 
-@Entity('category')
-export class CategoryDAO extends BaseEntity {
+@Entity("category")
+class CategoryDAO extends BaseEntity {
   @PrimaryGeneratedColumn()
   public id: number;
 
@@ -25,3 +17,5 @@ export class CategoryDAO extends BaseEntity {
   @Length(6, 200, { message: "Icone deve conter entre 6 até 200 caracteres." })
   public icon: string;
 }
+
+export default CategoryDAO;

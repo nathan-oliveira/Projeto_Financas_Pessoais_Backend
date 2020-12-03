@@ -1,14 +1,9 @@
-import { dirname } from 'path';
-import { createConnection } from 'typeorm';
-import { UserDAO, CategoryDAO, GoalDAO } from "../models"
+import { createConnection } from "typeorm";
+import { UserDAO, CategoryDAO, GoalDAO } from "../models";
 
-export const Connection = createConnection({
+const Connection = createConnection({
   database: "node_vue",
-  entities: [
-    UserDAO,
-    CategoryDAO,
-    GoalDAO
-  ],
+  entities: [UserDAO, CategoryDAO, GoalDAO],
   host: "localhost",
   logging: false,
   password: "",
@@ -16,5 +11,6 @@ export const Connection = createConnection({
   synchronize: false,
   type: "mysql",
   username: "root",
-})
+});
 
+export default Connection;
