@@ -9,10 +9,11 @@ class IndexRouter {
 
   public goalRouter: GoalRouter = new GoalRouter();
 
-  public index(app: any) {
-    app.use(this.authRouter.router);
-    app.use(this.categoryRouter.router);
-    app.use(this.goalRouter.router);
+  public index(app: any): any {
+    return app
+      .use(this.authRouter.router)
+      .use(this.categoryRouter.router)
+      .use(this.goalRouter.router);
   }
 }
 

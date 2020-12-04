@@ -29,6 +29,8 @@ class UserService {
   }
 
   static async updated(userId: number, data: object | any): Promise<UserDAO[] | object> {
+    if (!data.email || !data.name)
+      throw new AppError("Favor preencha todos os campos de cadastro.", 400);
     delete data.password_confirmation;
     await this.getUser(userId);
 
