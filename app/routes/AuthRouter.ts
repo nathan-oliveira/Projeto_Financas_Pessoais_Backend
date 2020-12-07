@@ -3,16 +3,18 @@ import { AuthController } from "../controllers";
 import Util from "../middlewares";
 
 class AuthRouter extends Router {
-  public authController: AuthController = AuthController.prototype;
-
   constructor() {
     super(AuthController);
+    this.createRoutes();
+  }
+
+  public createRoutes(): void {
     this.router
-      .post("/session", this.routes(this.authController.login))
-      .post("/users", this.routes(this.authController.create))
-      .put("/users", Util.AuthVerify, this.routes(this.authController.update))
-      .get("/profile", Util.AuthVerify, this.routes(this.authController.profile))
-      .post("/validarToken", Util.AuthVerify, this.routes(this.authController.validarToken));
+      .post("/session", this.routes(AuthController.prototype.login))
+      .post("/users", this.routes(AuthController.prototype.create))
+      .put("/users", Util.AuthVerify, this.routes(AuthController.prototype.update))
+      .get("/profile", Util.AuthVerify, this.routes(AuthController.prototype.profile))
+      .post("/validarToken", Util.AuthVerify, this.routes(AuthController.prototype.validarToken));
   }
 }
 
