@@ -2,7 +2,7 @@ import { getCustomRepository } from "typeorm";
 import { validate } from "class-validator";
 
 import AppError from "../config/AppError";
-import { GoalDAO } from "../models/GoalDAO";
+import { GoalDAO } from "../models";
 import { GoalRepository } from "../repository";
 
 class GoalService {
@@ -28,13 +28,8 @@ class GoalService {
     return goal;
   }
 
-  static async updated(
-    userId: number,
-    id: number,
-    data: object | any
-  ): Promise<GoalDAO[] | object> {
-    if (!data.description || !data.types || !data.money)
-      throw new AppError("Favor preencha todos os campos.", 400);
+  static async updated(userId: number, id: number, data: object | any): Promise<GoalDAO[] | object> {
+    if (!data.description || !data.types || !data.money) return new AppError("Favor preencha todos os campos.", 400);
     await this.getById(userId, id);
 
     return await getCustomRepository(GoalRepository).updated(userId, id, data);

@@ -18,8 +18,7 @@ class UserService {
   }
 
   static async save(name: string, email: string, password: string): Promise<UserDAO[] | object> {
-    if (!name || !email || !password)
-      throw new AppError("Favor preencha todos os campos de cadastro.", 400);
+    if (!name || !email || !password) return new AppError("Favor preencha todos os campos de cadastro.", 400);
 
     const user = UserDAO.create({ name, email, password });
     const errors = await validate(user);
@@ -29,13 +28,12 @@ class UserService {
   }
 
   static async updated(userId: number, data: object | any): Promise<UserDAO[] | object> {
-    if (!data.email || !data.name)
-      throw new AppError("Favor preencha todos os campos de cadastro.", 400);
+    if (!data.email || !data.name) throw new AppError("Favor preencha todos os campos de cadastro.", 400);
     delete data.password_confirmation;
     await this.getUser(userId);
 
     const updateUsuario = await getCustomRepository(UserRepository).updated(userId, data);
-    if (updateUsuario.raw.affectedRows !== 1) throw new AppError("Usuário não encontrado.", 400);
+    if (updateUsuario.raw.affectedRows !== 1) throw new AppError("Não foi possível atualizar o usuário.", 400);
     return await this.getUser(userId);
   }
 

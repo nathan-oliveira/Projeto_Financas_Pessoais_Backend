@@ -7,6 +7,8 @@ import { CategoryRepository } from "../repository";
 
 class CategoryService {
   static async save(name: string, icon: string): Promise<object> {
+    if (!name || !icon) return new AppError("Favor preencha todos os campos.", 400);
+
     const category = CategoryDAO.create({ name, icon });
     const errors = await validate(category);
 
@@ -18,17 +20,15 @@ class CategoryService {
     return await getCustomRepository(CategoryRepository).getAll();
   }
 
-  static async getById(id: number): Promise<CategoryDAO[]> {
-    const category: CategoryDAO[] | undefined = await getCustomRepository(
-      CategoryRepository
-    ).getById(id);
+  static async getById(id: number): Promise<CategoryDAO[] | object> {
+    const category: CategoryDAO[] | undefined = await getCustomRepository(CategoryRepository).getById(id);
 
-    if (category.length === 0) throw new AppError("Categoria não foi encontrada.", 400);
+    if (category.length === 0) return new AppError("Categoria não foi encontrada.", 400);
     return category;
   }
 
   static async updated(id: number, data: object | any): Promise<CategoryDAO[] | object> {
-    if (!data.name || !data.icon) throw new AppError("Favor preencha todos os campos.", 400);
+    if (!data.name || !data.icon) return new AppError("Favor preencha todos os campos.", 400);
     await this.getById(id);
 
     return await getCustomRepository(CategoryRepository).updated(id, data);

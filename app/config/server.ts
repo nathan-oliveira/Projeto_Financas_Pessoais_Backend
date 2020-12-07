@@ -26,8 +26,8 @@ class Server {
 
   constructor() {
     this.app = express();
-    this.RequestCors();
     this.start();
+    this.RequestCors();
     this.config();
     this.router();
     this.errors();
@@ -42,12 +42,11 @@ class Server {
     //   allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept", "X-Access-Token"],
     //   credentials: true,
     //   methods: "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE",
-    //   origin: 'http://localhost:8080',
-    //   preflightContinue: false
+    //   origin: "http://localhost:8080",
+    //   preflightContinue: false,
     // };
 
     this.app.use(cors());
-    // this.app.options("*", cors(options))
   }
 
   private config(): void {
@@ -69,8 +68,6 @@ class Server {
           message: err.message,
         });
       }
-
-      console.log(err);
 
       return res.status(500).json({
         status: "error",

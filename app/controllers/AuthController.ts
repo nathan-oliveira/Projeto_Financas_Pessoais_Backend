@@ -15,11 +15,7 @@ class AuthController extends Controller {
     const { name, email, password, password_confirmation } = this.req.body as IUsers;
 
     try {
-      const result = await UserService.save(
-        name,
-        email,
-        await Util.CreatePasswordHash(password, password_confirmation)
-      );
+      const result = await UserService.save(name, email, await Util.CreatePasswordHash(password, password_confirmation));
       return this.response({ statusCode: 200, body: result });
     } catch (err) {
       return this.response({ statusCode: 400, body: err });
