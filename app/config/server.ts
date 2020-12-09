@@ -11,33 +11,31 @@ import IndexRouter from "../routes";
 import AppError from "./AppError";
 
 class Server {
-  private static connectDB(): any {
-    Connection.then((resp) => {
-      return Connection;
-    }).catch((err) => {
-      console.log(err);
-      return console.log("Banco de dados OFF");
-    });
-  }
-
   public app: express.Application;
 
   public routes: IndexRouter = new IndexRouter();
 
   constructor() {
     this.app = express();
-    this.start();
-    this.RequestCors();
+    this.connection();
+    this.requestCors();
     this.config();
     this.router();
     this.errors();
   }
 
-  private async start(): Promise<any> {
-    await Server.connectDB();
+  private connection(): void {
+    Connection
+      .then(async (resp) => {
+        console.log('[+] Banco ON')
+        return await Connection;
+      })
+      .catch(async (err) => {
+        return console.log('[-] Banco OFF')
+      })
   }
 
-  private RequestCors(): void {
+  private requestCors(): void {
     // const options: cors.CorsOptions = {
     //   allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept", "X-Access-Token"],
     //   credentials: true,
