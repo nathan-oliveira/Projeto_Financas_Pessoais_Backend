@@ -18,7 +18,7 @@ class UserService {
   }
 
   static async save(name: string, email: string, password: string): Promise<UserDAO[] | object> {
-    if (!name || !email || !password) return new AppError("Favor preencha todos os campos de cadastro.", 400);
+    if (!name || !email || !password) throw new AppError("Favor preencha todos os campos de cadastro.", 400);
 
     const user = UserDAO.create({ name, email, password });
     const errors = await validate(user);
