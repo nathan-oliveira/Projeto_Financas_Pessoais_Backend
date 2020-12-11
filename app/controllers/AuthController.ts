@@ -1,4 +1,4 @@
-import { Response } from "express";
+import { Request, Response } from "express";
 import { UserService } from "../services";
 import Controller from "./Controller";
 import Util from "../middlewares";
@@ -11,6 +11,10 @@ interface IUsers {
 }
 
 class AuthController extends Controller {
+  constructor(req: Request, res: Response) {
+    super(req, res);
+  }
+
   public async create(): Promise<Response> {
     const { name, email, password, password_confirmation } = this.req.body as IUsers;
 

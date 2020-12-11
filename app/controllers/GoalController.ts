@@ -1,4 +1,4 @@
-import { Response } from "express";
+import { Request, Response } from "express";
 import { GoalService } from "../services";
 import Controller from "./Controller";
 
@@ -10,6 +10,10 @@ interface IGoal {
 }
 
 class GoalController extends Controller {
+  constructor(req: Request, res: Response) {
+    super(req, res);
+  }
+
   public async create(): Promise<Response> {
     const { userId } = (this.req as unknown) as { userId: number };
     const dados = { ...this.req.body, userId } as IGoal;

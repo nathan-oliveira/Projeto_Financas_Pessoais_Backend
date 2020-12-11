@@ -1,4 +1,4 @@
-import { Response } from "express";
+import { Request, Response } from "express";
 import { CategoryService } from "../services";
 import Controller from "./Controller";
 
@@ -8,6 +8,10 @@ interface ICategory {
 }
 
 class CategoryController extends Controller {
+  constructor(req: Request, res: Response) {
+    super(req, res);
+  }
+
   public async create(): Promise<Response> {
     const { name, icon } = this.req.body as ICategory;
 
