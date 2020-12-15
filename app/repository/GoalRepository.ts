@@ -1,5 +1,5 @@
 import { EntityRepository, Repository } from "typeorm";
-import { GoalDAO } from "../models/GoalDAO";
+import { GoalDAO } from "../models";
 import AppError from "../config/AppError";
 
 @EntityRepository(GoalDAO)

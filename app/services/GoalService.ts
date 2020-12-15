@@ -19,10 +19,7 @@ class GoalService {
   }
 
   static async getById(userId: number, id: number): Promise<GoalDAO[]> {
-    const goal: GoalDAO[] | undefined = await getCustomRepository(GoalRepository).getById(
-      userId,
-      id
-    );
+    const goal: GoalDAO[] | undefined = await getCustomRepository(GoalRepository).getById(userId, id);
 
     if (goal.length === 0) throw new AppError("Meta não foi encontrada.", 400);
     return goal;
