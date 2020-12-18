@@ -23,7 +23,7 @@ class UserService {
     const user = UserDAO.create({ name, email, password });
     const errors = await validate(user);
 
-    if (errors.length > 0) throw errors.map((v) => v.constraints);
+    if (errors.length > 0) throw new AppError("Todos os campos deve conter no mínimo 6 caracteres.", 400);
     return getCustomRepository(UserRepository).saveUser(user);
   }
 

@@ -12,7 +12,7 @@ class CategoryService {
     const category = CategoryDAO.create({ name, icon });
     const errors = await validate(category);
 
-    if (errors.length > 0) throw errors.map((v) => v.constraints);
+    if (errors.length > 0) throw new AppError("Todos os campos deve conter no mínimo 6 caracteres.", 400);
     return await getCustomRepository(CategoryRepository).saveCategory(category);
   }
 

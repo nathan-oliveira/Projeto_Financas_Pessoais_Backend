@@ -22,7 +22,7 @@ class GoalController extends Controller {
       const result = await GoalService.save(dados);
       return this.response({ statusCode: 200, body: result });
     } catch (err) {
-      return this.response({ statusCode: 200, body: err });
+      return this.response({ statusCode: 400, body: err });
     }
   }
 
