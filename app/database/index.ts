@@ -1,9 +1,14 @@
 import { createConnection } from "typeorm";
-import { UserDAO, CategoryDAO, GoalDAO } from "../models";
+import {
+  UserDAO,
+  CategoryDAO,
+  GoalDAO,
+  BusinessDAO,
+} from "../models";
 
 const Connection = createConnection({
   database: "node_vue",
-  entities: [UserDAO, CategoryDAO, GoalDAO],
+  entities: [UserDAO, CategoryDAO, GoalDAO, BusinessDAO],
   host: "localhost",
   logging: false,
   password: "",

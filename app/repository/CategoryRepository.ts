@@ -8,7 +8,7 @@ class CategoryRepository extends Repository<CategoryDAO> {
     try {
       return this.manager.save(CategoryDAO, category);
     } catch (err) {
-      throw new AppError("Não foi possível realizar o Cadastro.", 400);
+      throw new AppError("Não foi possível realizar o cadastro.", 400);
     }
   }
 

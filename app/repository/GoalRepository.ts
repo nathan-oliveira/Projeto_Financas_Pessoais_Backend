@@ -8,7 +8,7 @@ class GoalRepository extends Repository<GoalDAO> {
     try {
       return this.manager.save(GoalDAO, goal);
     } catch (err) {
-      throw new AppError("Não foi possível realizar cadastrar.", 400);
+      throw new AppError("Não foi possível realizar o cadastro.", 400);
     }
   }
 
