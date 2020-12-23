@@ -26,7 +26,7 @@ class BusinessService {
   }
 
   static async updated(userId: number, id: number, data: object | any): Promise<BusinessDAO[] | object> {
-    if (!data.description || data.types || data.money) return new AppError("Favor preencha todos os campos.", 400);
+    if (!data.description || !data.types || !data.money) return new AppError("Favor preencha todos os campos.", 400);
     await this.getById(userId, id);
 
     return await getCustomRepository(BusinessRepository).updated(userId, id, data);

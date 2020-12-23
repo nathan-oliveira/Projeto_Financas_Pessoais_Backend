@@ -26,6 +26,41 @@ class BusinessController extends Controller {
       return this.response({ statusCode: 400, body: err });
     }
   }
+
+  public async getAll(): Promise<Response> {
+    const { userId } = (this.req as unknown) as { userId: number };
+    const result = await BusinessService.getAll(userId);
+
+    return this.response({ statusCode: 200, body: result });
+  }
+
+  public async getById(): Promise<Response> {
+    const { userId } = (this.req as unknown) as { userId: number };
+    const { id } = (this.req.params as unknown) as { id: number };
+
+    const result = await BusinessService.getById(userId, id);
+    return this.response({ statusCode: 200, body: result });
+  }
+
+  public async update(): Promise<Response> {
+    const { userId } = (this.req as unknown) as { userId: number };
+    const { id } = (this.req.params as unknown) as { id: number };
+
+    try {
+      const result = await BusinessService.updated(userId, id, this.req.body);
+      return this.response({ statusCode: 200, body: result });
+    } catch (err) {
+      return this.response({ statusCode: 400, body: err });
+    }
+  }
+
+  public async delete(): Promise<Response> {
+    const { userId } = (this.req as unknown) as { userId: number };
+    const { id } = (this.req.params as unknown) as { id: number };
+
+    const result = await BusinessService.deleted(userId, id);
+    return this.response({ statusCode: 200, body: result });
+  }
 }
 
-export default BusinessService;
+export default BusinessController;

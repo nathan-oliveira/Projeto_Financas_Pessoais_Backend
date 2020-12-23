@@ -12,7 +12,6 @@ import AppError from "./AppError";
 
 class Server {
   public app: express.Application;
-
   public routes: IndexRouter = new IndexRouter();
 
   constructor() {
