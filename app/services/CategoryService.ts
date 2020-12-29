@@ -7,13 +7,15 @@ import { CategoryRepository } from "../repository";
 
 class CategoryService {
   static async save(name: string, icon: string): Promise<object> {
-    if (!name || !icon) throw new AppError("Favor preencha todos os campos.", 400);
+    try {
+      const category = CategoryDAO.create({ name, icon });
+      const errors = await validate(category);
 
-    const category = CategoryDAO.create({ name, icon });
-    const errors = await validate(category);
-
-    if (errors.length > 0) throw new AppError("Todos os campos deve conter no mínimo 6 caracteres.", 400);
-    return await getCustomRepository(CategoryRepository).saveCategory(category);
+      if (errors.length > 0) throw errors;
+      return await getCustomRepository(CategoryRepository).saveCategory(category);
+    } catch (err) {
+      throw new AppError("Todos os campos deve conter no mínimo 6 caracteres.", 400);
+    }
   }
 
   static async getAll(): Promise<CategoryDAO[]> {

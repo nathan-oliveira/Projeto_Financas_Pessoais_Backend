@@ -18,13 +18,15 @@ class UserService {
   }
 
   static async save(name: string, email: string, password: string): Promise<UserDAO[] | object> {
-    if (!name || !email || !password) throw new AppError("Favor preencha todos os campos de cadastro.", 400);
+    try {
+      const user = UserDAO.create({ name, email, password });
+      const errors = await validate(user);
 
-    const user = UserDAO.create({ name, email, password });
-    const errors = await validate(user);
-
-    if (errors.length > 0) throw new AppError("Todos os campos deve conter no mínimo 6 caracteres.", 400);
-    return getCustomRepository(UserRepository).saveUser(user);
+      if (errors.length > 0) throw new AppError("Todos os campos deve conter no mínimo 6 caracteres.", 400);
+      return getCustomRepository(UserRepository).saveUser(user);
+    } catch (err) {
+      throw new AppError("Favor preencha todos os campos de cadastro.", 400);
+    }
   }
 
   static async updated(userId: number, data: object | any): Promise<UserDAO[] | object> {

@@ -7,11 +7,15 @@ import { GoalRepository } from "../repository";
 
 class GoalService {
   static async save(dados: object): Promise<object> {
-    const goal = GoalDAO.create(dados);
-    const errors = await validate(goal);
+    try {
+      const goal = GoalDAO.create(dados);
+      const errors = await validate(goal);
 
-    if (errors.length > 0) throw new AppError("Todos os campos deve conter no mínimo 6 caracteres.", 400);
-    return await getCustomRepository(GoalRepository).saveGoal(goal);
+      if (errors.length > 0) throw errors;
+      return await getCustomRepository(GoalRepository).saveGoal(goal);
+    } catch (err) {
+      throw new AppError("Todos os campos deve conter no mínimo 6 caracteres.", 400);
+    }
   }
 
   static async getAll(userId: number): Promise<GoalDAO[]> {

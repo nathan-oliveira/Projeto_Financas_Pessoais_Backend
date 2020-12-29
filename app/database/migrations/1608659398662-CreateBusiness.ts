@@ -53,14 +53,14 @@ export class CreateBusiness1608659398662 implements MigrationInterface {
     }))
 
     await queryRunner.addColumn('business', new TableColumn({
-      name: 'goalId',
+      name: 'categoryId',
       type: 'int'
     }))
 
     await queryRunner.createForeignKey('business', new TableForeignKey({
-      columnNames: ['goalId'],
+      columnNames: ['categoryId'],
       referencedColumnNames: ['id'],
-      referencedTableName: 'goals',
+      referencedTableName: 'category',
       onDelete: 'CASCADE'
     }))
 
@@ -68,15 +68,15 @@ export class CreateBusiness1608659398662 implements MigrationInterface {
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     const tableUsers = await queryRunner.getTable('users');
-    const tableGoals = await queryRunner.getTable('goals');
+    const tableCategory = await queryRunner.getTable('category');
 
     const foreignKeyUsers = tableUsers!.foreignKeys.find(fk => fk.columnNames.indexOf('userId') !== -1);
-    const foreignKeyGoals = tableGoals!.foreignKeys.find(fk => fk.columnNames.indexOf('goals') !== -1);
+    const foreignKeyCategory = tableCategory!.foreignKeys.find(fk => fk.columnNames.indexOf('categoryId') !== -1);
 
     await queryRunner.dropForeignKey('users', foreignKeyUsers!);
-    await queryRunner.dropForeignKey('goals', foreignKeyGoals!);
+    await queryRunner.dropForeignKey('category', foreignKeyCategory!);
     await queryRunner.dropColumn('users', 'userId');
-    await queryRunner.dropColumn('goals', 'goalId');
+    await queryRunner.dropColumn('category', 'categoryId');
     await queryRunner.dropTable('business');
   }
 

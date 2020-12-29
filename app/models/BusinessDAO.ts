@@ -12,7 +12,7 @@ import {
 import { IsNotEmpty, IsEnum } from "class-validator";
 
 import UserDAO from "./UserDAO";
-import GoalDAO from "./GoalDAO";
+import CategoryDAO from "./CategoryDAO";
 
 @Entity("business")
 class BusinessDAO extends BaseEntity {
@@ -44,9 +44,9 @@ class BusinessDAO extends BaseEntity {
   @JoinColumn({ name: "userId" })
   public userId: UserDAO;
 
-  @ManyToOne((type: any) => GoalDAO, (goal: any) => goal.id)
-  @JoinColumn({ name: "goalId" })
-  public goalId: GoalDAO;
+  @ManyToOne((type: any) => CategoryDAO, (category: any) => category.id)
+  @JoinColumn({ name: "categoryId" })
+  public categoryId: CategoryDAO;
 }
 
 export default BusinessDAO;
