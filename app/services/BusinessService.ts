@@ -25,7 +25,7 @@ class BusinessService {
   static async getById(userId: number, id: number): Promise<BusinessDAO[]> {
     const business: BusinessDAO[] | undefined = await getCustomRepository(BusinessRepository).getById(userId, id);
 
-    if (business.length === 0) throw new AppError("Meta não foi encontrada.", 400);
+    if (business.length === 0) throw new AppError("Cadastro não foi encontrado.", 400);
     return business;
   }
 

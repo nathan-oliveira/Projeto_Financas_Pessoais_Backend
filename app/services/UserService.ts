@@ -13,7 +13,7 @@ interface IUser {
 
 class UserService {
   static async userExist(email: string, password: string): Promise<UserDAO[]> {
-    if (!email || !password) throw new AppError("Favor preencha todos os campos de cadastro.", 400);
+    if (!email || !password) throw new AppError("Favor preencha todos os campos.", 400);
     return await getCustomRepository(UserRepository).userExist(email);
   }
 

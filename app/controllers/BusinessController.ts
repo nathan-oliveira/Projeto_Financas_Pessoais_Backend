@@ -7,7 +7,7 @@ interface IBusiness {
   types: string;
   money: string;
   userId: number;
-  goalId: number;
+  categoryId: number;
 }
 
 class BusinessController extends Controller {

@@ -13,21 +13,21 @@ class BusinessRepository extends Repository<BusinessDAO> {
   }
 
   public getAll(userId: number): Promise<BusinessDAO[]> {
-    return this.manager.find(BusinessDAO, { where: { userId } });
+    return this.manager.find(BusinessDAO, { where: { userId }, relations: ["categoryId"] });
   }
 
   public getById(userId: number, id: number): Promise<BusinessDAO[]> {
-    return this.manager.find(BusinessDAO, { where: { id, userId } });
+    return this.manager.find(BusinessDAO, { where: { id, userId }, relations: ["categoryId"] });
   }
 
   public async updated(userId: number, id: number, data: object): Promise<object> {
     await this.manager.update(BusinessDAO, { id, userId }, data);
-    return { message: "Meta atualizada com sucesso!" };
+    return { message: "Cadastro atualizado com sucesso!" };
   }
 
   public async deleted(userId: number, id: number): Promise<object> {
     await this.manager.delete(BusinessDAO, { userId, id });
-    return { message: "Meta excluida com sucesso!" };
+    return { message: "Cadastro excluido com sucesso!" };
   }
 }
 
