@@ -40,7 +40,7 @@ export default class Middlewares {
 
     try {
       const payload = (await jwt.verify(token, process.env.APP_SECRET || "secret")) as IPayload;
-      req.userId = payload.id;
+      (<any>req).userId = payload.id;
       next();
     } catch (error) {
       throw new AppError("Token invalid!", 400);

@@ -34,7 +34,7 @@ class UserService {
     delete data.password_confirmation;
     await this.getUser(userId);
 
-    const updateUsuario = await getCustomRepository(UserRepository).updated(userId, data);
+    const updateUsuario: any = await getCustomRepository(UserRepository).updated(userId, data);
     if (updateUsuario.raw.affectedRows !== 1) throw new AppError("Não foi possível atualizar o usuário.", 400);
     return await this.getUser(userId);
   }
