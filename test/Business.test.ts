@@ -4,34 +4,32 @@ import app from "../app/config/server";
 
 let token: string = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDIsImlhdCI6MTYwOTkzMzczMSwiZXhwIjoxNjEwMDIwMTMxfQ.2e9NBRyHPqsJ15Ut719Wvs77wQuazHown3jfL4dxi94";
 
-let idGoal: string;
+let idBusiness: string;
 
-describe("Validate goal routes", () => {
-  describe("#POST /api/goal", () => {
-    it("Create an goal, return 200", (done) => {
-      request(app).post("/api/goal")
+describe("Validate business routes", () => {
+  describe("#POST /api/business", () => {
+    it("Create an business, return 200", (done) => {
+      request(app).post("/api/business")
         .set("Authorization", `Bearer ${token}`)
         .set("Accept", "application/json")
         .send({
-          "description": "teste",
-          "types": "receita",
-          "money": 108.20
+          "description": "business",
+          "types": "despesa",
+          "money": 100.9,
+          "categoryId": 62
         })
         .end((err: Error, res: request.Response) => {
           expect(res.status).to.equal(200);
           expect(res.body).to.have.property("id");
-          expect(res.body).to.have.property("description");
-          expect(res.body).to.have.property("types");
-          expect(res.body).to.have.property("money");
 
-          idGoal = res.body.id
+          idBusiness = res.body.id;
 
           done();
         })
     });
 
-    it("Validations when creating goal, return 400", (done) => {
-      request(app).post("/api/goal")
+    it("Validations when creating business, return 400", (done) => {
+      request(app).post("/api/business")
         .set("Authorization", `Bearer ${token}`)
         .set("Accept", "application/json")
         .send({})
@@ -40,12 +38,12 @@ describe("Validate goal routes", () => {
 
           done();
         })
-    })
+    });
   });
 
-  describe("#GET /api/goal", () => {
-    it("Search all goals, return 200", (done) => {
-      request(app).get("/api/goal")
+  describe("#GET /api/business", () => {
+    it("Search all business, return 200", (done) => {
+      request(app).get("/api/business")
         .set("Authorization", `Bearer ${token}`)
         .set("Accept", "application/json")
         .end((err: Error, res: request.Response) => {
@@ -56,25 +54,20 @@ describe("Validate goal routes", () => {
     });
   });
 
-  describe("#GET /api/goal/:id", () => {
-    it("Search goal, return 200", (done) => {
-      request(app).get(`/api/goal/${idGoal}`)
+  describe("#GET /api/business/:id", () => {
+    it("Search business, return 200", (done) => {
+      request(app).get(`/api/business/${idBusiness}`)
         .set("Authorization", `Bearer ${token}`)
         .set("Accept", "application/json")
         .end((err: Error, res: request.Response) => {
           expect(res.status).to.equal(200);
 
-          expect(res.body[0]).to.have.property("id");
-          expect(res.body[0]).to.have.property("description");
-          expect(res.body[0]).to.have.property("types");
-          expect(res.body[0]).to.have.property("money");
-
           done();
         })
     });
 
-    it("Invalid goal search, return 400", (done) => {
-      request(app).get("/api/goal/12121212121")
+    it("Invalid business search, return 400", (done) => {
+      request(app).get("/api/business/1133232311")
         .set("Authorization", `Bearer ${token}`)
         .set("Accept", "application/json")
         .end((err: Error, res: request.Response) => {
@@ -88,15 +81,16 @@ describe("Validate goal routes", () => {
     });
   });
 
-  describe("#PUT /api/goal/:id", () => {
-    it("Update an goal, return 200", (done) => {
-      request(app).put(`/api/goal/${idGoal}`)
+  describe("#PUT /api/business/:id", () => {
+    it("Update an business, return 200", (done) => {
+      request(app).put(`/api/business/${idBusiness}`)
         .set("Authorization", `Bearer ${token}`)
         .set("Accept", "application/json")
         .send({
-          "description": "teste",
-          "types": "receita",
-          "money": 108.20
+          "description": "business",
+          "types": "despesa",
+          "money": 100.9,
+          "categoryId": 62
         })
         .end((err: Error, res: request.Response) => {
           expect(res.status).to.equal(200);
@@ -107,14 +101,15 @@ describe("Validate goal routes", () => {
         })
     });
 
-    it("Goal is invalid, return 400", (done) => {
-      request(app).put("/api/goal/1133232311" + idGoal)
+    it("Business is invalid, return 400", (done) => {
+      request(app).put("/api/business/1133232311" + idBusiness)
         .set("Authorization", `Bearer ${token}`)
         .set("Accept", "application/json")
         .send({
-          "description": "teste",
-          "types": "receita",
-          "money": 108.20
+          "description": "business",
+          "types": "despesa",
+          "money": 100.9,
+          "categoryId": 62
         })
         .end((err: Error, res: request.Response) => {
           expect(res.status).to.equal(400);
@@ -127,9 +122,9 @@ describe("Validate goal routes", () => {
     });
   });
 
-  describe("#DELETE /api/goal/:id", () => {
-    it("Delete goal", (done) => {
-      request(app).delete(`/api/goal/${idGoal}`)
+  describe("#DELETE /api/business/:id", () => {
+    it("Delete business", (done) => {
+      request(app).delete(`/api/business/${idBusiness}`)
         .set("Authorization", `Bearer ${token}`)
         .set("Accept", "application/json")
         .end((err: Error, res: request.Response) => {
@@ -138,11 +133,12 @@ describe("Validate goal routes", () => {
           expect(res.body).to.have.property("message");
 
           done();
-        })
+        });
+
     });
 
-    it("Could not delete goal", (done) => {
-      request(app).delete("/api/goal/131131212121")
+    it("Could not delete business", (done) => {
+      request(app).delete("/api/business/1232323444")
         .set("Authorization", `Bearer ${token}`)
         .set("Accept", "application/json")
         .end((err: Error, res: request.Response) => {
@@ -155,4 +151,4 @@ describe("Validate goal routes", () => {
         })
     });
   });
-})
+});

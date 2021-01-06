@@ -2,14 +2,14 @@ import request from "supertest";
 import { expect } from "chai";
 import app from "../app/config/server";
 
-let token: string = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDYsImlhdCI6MTYwNjY2NjM2MiwiZXhwIjoxNjA2NzUyNzYyfQ.HvxR1tafulSjYg1gCjmdLnABZHHK6Zh65E6dQUnakmw";
+let token: string = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDIsImlhdCI6MTYwOTkzMzczMSwiZXhwIjoxNjEwMDIwMTMxfQ.2e9NBRyHPqsJ15Ut719Wvs77wQuazHown3jfL4dxi94";
 
 let idCategory: number;
 
 describe("Validate category routes", () => {
-  describe("#POST /category", () => {
+  describe("#POST /api/category", () => {
     it("Create an category, return 200", (done) => {
-      request(app).post("/category")
+      request(app).post("/api/category")
         .set("Authorization", `Bearer ${token}`)
         .set("Accept", "application/json")
         .send({
@@ -29,7 +29,7 @@ describe("Validate category routes", () => {
     });
 
     it("Validations when creating category, return 400", (done) => {
-      request(app).post("/category")
+      request(app).post("/api/category")
         .set("Authorization", `Bearer ${token}`)
         .set("Accept", "application/json")
         .send({})
@@ -41,9 +41,9 @@ describe("Validate category routes", () => {
     });
   });
 
-  describe("#GET /category", () => {
+  describe("#GET /api/category", () => {
     it("Search all categories, return 200", (done) => {
-      request(app).get("/category")
+      request(app).get("/api/category")
         .set("Authorization", `Bearer ${token}`)
         .set("Accept", "application/json")
         .end((err: Error, res: request.Response) => {
@@ -54,9 +54,9 @@ describe("Validate category routes", () => {
     });
   });
 
-  describe("#GET /category/:id", () => {
+  describe("#GET /api/category/:id", () => {
     it("Search category, return 200", (done) => {
-      request(app).get(`/category/${idCategory}`)
+      request(app).get(`/api/category/${idCategory}`)
         .set("Authorization", `Bearer ${token}`)
         .set("Accept", "application/json")
         .end((err: Error, res: request.Response) => {
@@ -71,7 +71,7 @@ describe("Validate category routes", () => {
     });
 
     it("Invalid category search, return 400", (done) => {
-      request(app).get("/category/11111111")
+      request(app).get("/api/category/11111111")
         .set("Authorization", `Bearer ${token}`)
         .set("Accept", "application/json")
         .end((err: Error, res: request.Response) => {
@@ -85,9 +85,9 @@ describe("Validate category routes", () => {
     });
   });
 
-  describe("#PUT /category/:id", () => {
-    it("Update an account, return 200", (done) => {
-      request(app).put("/category/" + idCategory)
+  describe("#PUT /api/category/:id", () => {
+    it("Update an category, return 200", (done) => {
+      request(app).put("/api/category/" + idCategory)
         .set("Authorization", `Bearer ${token}`)
         .set("Accept", "application/json")
         .send({
@@ -104,7 +104,7 @@ describe("Validate category routes", () => {
     });
 
     it("Category is invalid, return 400", (done) => {
-      request(app).put("/category/" + idCategory)
+      request(app).put("/api/category/" + idCategory)
         .set("Authorization", `Bearer ${token}`)
         .set("Accept", "application/json")
         .send({})
@@ -120,9 +120,9 @@ describe("Validate category routes", () => {
 
   });
 
-  describe("#DELETE /category/:id", () => {
+  describe("#DELETE /api/category/:id", () => {
     it("Delete category", (done) => {
-      request(app).delete("/category/" + idCategory)
+      request(app).delete("/api/category/" + idCategory)
         .set("Authorization", `Bearer ${token}`)
         .set("Accept", "application/json")
         .end((err: Error, res: request.Response) => {
@@ -135,7 +135,7 @@ describe("Validate category routes", () => {
     });
 
     it("Could not delete category", (done) => {
-      request(app).delete("/category/12121212121121")
+      request(app).delete("/api/category/12121212121121")
         .set("Authorization", `Bearer ${token}`)
         .set("Accept", "application/json")
         .end((err: Error, res: request.Response) => {
