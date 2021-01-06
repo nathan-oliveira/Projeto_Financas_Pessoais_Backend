@@ -8,7 +8,7 @@
     "npm": "6.14.9"
   },
   "scripts": {
-    "start": "tsc --sourceMap false && node dist/index.js",
+    "start": "tsc && node dist/index.js",
     "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules app/index.ts",
     "test": "mocha -r ts-node/register test/**/*.ts",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
