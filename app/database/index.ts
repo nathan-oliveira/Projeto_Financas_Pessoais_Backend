@@ -22,9 +22,7 @@ const Connection = createConnection({
 /*
 DATABASE_URL
 postgres://fetkujuflvbkba:2ca2256961197477bbd8d7428b5a7f8aa80cde7928ccb844dc0bf1c53fa526bf@ec2-50-19-32-202.compute-1.amazonaws.com:5432/d3dm2njj4pg8ge
-*/
 
-/*
 ** Config to MySQL **
 const Connection = createConnection({
   database: "node_vue",
