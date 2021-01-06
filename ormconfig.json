@@ -1,12 +1,13 @@
 {
-  "type": "mysql",
-  "host": "localhost",
-  "port": 3306,
-  "username": "root",
-  "password": "",
-  "database": "node_vue",
+  "type": "postgres",
+  "host": "ec2-50-19-32-202.compute-1.amazonaws.com",
+  "port": 5432,
+  "username": "fetkujuflvbkba",
+  "password": "2ca2256961197477bbd8d7428b5a7f8aa80cde7928ccb844dc0bf1c53fa526bf",
+  "database": "d3dm2njj4pg8ge",
   "synchronize": false,
   "loggin": false,
+  "ssl": { "rejectUnauthorized": false },
   "entities": [
     "./app/models/*.{js,ts}"
   ],
