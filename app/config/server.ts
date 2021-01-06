@@ -50,7 +50,7 @@ class Server {
     this.app.disable("x-powered-by");
     this.app.use(bp.urlencoded({ extended: true }));
     this.app.use(bp.json({ limit: "20mb" }));
-    this.app.set("port", 4000);
+    this.app.set("port", 3000);
   }
 
   private router(): void {
