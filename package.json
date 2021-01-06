@@ -27,7 +27,9 @@
     "mysql": "^2.18.1",
     "pg": "^8.5.1",
     "reflect-metadata": "^0.1.13",
-    "typeorm": "^0.2.28"
+    "typeorm": "^0.2.28",
+    "@types/node": "^14.14.2",
+    "ts-node": "^9.0.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^3.0.0",
