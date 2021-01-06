@@ -11,7 +11,7 @@ abstract class Router {
   }
 
   protected routes(action: () => void): any {
-    return (req: Request, res: Response) => {
+    return (req: express.Request, res: express.Response) => {
       return action.call(new this.controller(req, res));
     };
   }
