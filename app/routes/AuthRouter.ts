@@ -14,6 +14,7 @@ class AuthRouter extends Router {
       .post("/users", this.routes(AuthController.prototype.create))
       .put("/users", Util.AuthVerify, this.routes(AuthController.prototype.update))
       .get("/profile", Util.AuthVerify, this.routes(AuthController.prototype.profile))
+      .patch("/profile", Util.AuthVerify, this.routes(AuthController.prototype.updateFoto))
       .post("/validarToken", Util.AuthVerify, this.routes(AuthController.prototype.validarToken));
   }
 }

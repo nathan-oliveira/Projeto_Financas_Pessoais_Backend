@@ -57,6 +57,18 @@ class AuthController extends Controller {
     }
   }
 
+  public async updateFoto(): Promise<Response> {
+    const { userId } = (this.req as unknown) as { userId: number };
+    const { foto } = this.req.body as { foto: string; };
+
+    try {
+      const result = await UserService.updateFoto(userId, foto);
+      return this.response({ statusCode: 200, body: result });
+    } catch (err) {
+      return this.response({ statusCode: 400, body: err });
+    }
+  }
+
   public async validarToken() {
     const result = { error: false };
     return this.response({ statusCode: 200, body: result });

@@ -31,6 +31,9 @@ class UserDAO extends BaseEntity {
   @Column({ default: true })
   public active: boolean;
 
+  @Column("text")
+  public foto: string;
+
   @Column({ default: 0 })
   public nivel: number;
 

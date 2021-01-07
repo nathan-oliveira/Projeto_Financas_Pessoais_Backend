@@ -36,6 +36,17 @@ class UserService {
 
     const updateUsuario: any = await getCustomRepository(UserRepository).updated(userId, data);
     if (updateUsuario.raw.affectedRows !== 1) throw new AppError("Não foi possível atualizar o usuário.", 400);
+
+    return await this.getUser(userId);
+  }
+
+  static async updateFoto(userId: number, foto: string): Promise<UserDAO[] | object> {
+    if (!foto) throw new AppError("Campo 'foto' não pode ser vazio.", 400);
+    await this.getUser(userId);
+
+    const updateUsuario: any = await getCustomRepository(UserRepository).updateFoto(userId, foto);
+    if (updateUsuario.raw.affectedRows !== 1) throw new AppError("Não foi possível atualizar a foto.", 400);
+
     return await this.getUser(userId);
   }
 
@@ -48,6 +59,7 @@ class UserService {
       email: user[0].email,
       active: user[0].active,
       nivel: user[0].nivel,
+      foto: user[0].foto,
     } as IUser;
   }
 }

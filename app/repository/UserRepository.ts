@@ -20,6 +20,12 @@ class UserRepository extends Repository<UserDAO> {
     return await this.manager.update(UserDAO, { id: userId }, data);
   }
 
+  public async updateFoto(userId: number, foto: string): Promise<UserDAO[] | object> {
+    return await this.manager.update(UserDAO, { id: userId }, {
+      foto: foto
+    });
+  }
+
   public getUser(id: number): Promise<UserDAO[]> {
     return this.manager.find(UserDAO, { where: { id } });
   }

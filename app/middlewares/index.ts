@@ -9,6 +9,7 @@ interface IJwT {
   name: string;
   email: string;
   nivel: string;
+  foto: string;
 }
 
 interface IPayload {
@@ -27,6 +28,7 @@ export default class Middlewares {
       name: result.name,
       email: result.email,
       nivel: result.nivel,
+      foto: result.foto,
       token,
     };
   }

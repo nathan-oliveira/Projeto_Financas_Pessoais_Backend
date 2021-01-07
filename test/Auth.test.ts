@@ -140,4 +140,20 @@ describe("Validate user routes", () => {
         })
     });
   });
+
+  describe("#PATCH /api/profile", () => {
+    it("Update imagem to profile", (done) => {
+      request(app).patch("/api/profile")
+        .set("Authorization", `Bearer ${token}`)
+        .set("Accept", "application/json")
+        .send({
+          "foto": "https://www.auctus.com.br/wp-content/uploads/2017/09/sem-imagem-avatar.png"
+        })
+        .end((err: Error, res: request.Response) => {
+          expect(res.status).to.equal(200);
+
+          done();
+        })
+    })
+  })
 });
