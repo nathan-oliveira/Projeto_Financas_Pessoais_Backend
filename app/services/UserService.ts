@@ -19,7 +19,7 @@ class UserService {
 
   static async save(name: string, email: string, password: string): Promise<UserDAO[] | object> {
     try {
-      const user = UserDAO.create({ name, email, password });
+      const user = UserDAO.create({ name, email, password, foto: "" });
       const errors = await validate(user);
 
       if (errors.length > 0) throw new AppError("Todos os campos deve conter no mínimo 6 caracteres.", 400);
