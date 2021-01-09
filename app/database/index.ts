@@ -7,15 +7,15 @@ import {
 } from "../models";
 
 const Connection = createConnection({
-  database: "devprnn4jta6nv",
+  database: "devprnn4jta6xnvx",
   entities: [UserDAO, CategoryDAO, GoalDAO, BusinessDAO],
-  host: "ec2-54-211-210-149.compute-1.amazonaws.com",
+  host: "ec2-54-211-210-119.compute-1.amazonaws.com",
   logging: false,
-  password: "63a0801f6fca2ae654a19969fd83b03e7a8dd7186249a00d81f9cfcaa2aa1f42",
+  password: "63a0801f6fca2aex654a19969fd83b03e7a8dd7186249a00d81f9cfcaa2aa1f42",
   port: 5432,
   synchronize: false,
   type: "postgres",
-  username: "cfoenzkqhvogdr",
+  username: "cfoenxzkqhvogdr",
   ssl: { rejectUnauthorized: false }
 });
 
