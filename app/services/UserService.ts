@@ -35,7 +35,7 @@ class UserService {
     await this.getUser(userId);
 
     const updateUsuario: any = await getCustomRepository(UserRepository).updated(userId, data);
-    if (updateUsuario.affectedRows !== 1) throw new AppError("Não foi possível atualizar o usuário.", 400);
+    if (updateUsuario.affected !== 1) throw new AppError("Não foi possível atualizar o usuário.", 400);
 
     return await this.getUser(userId);
   }
