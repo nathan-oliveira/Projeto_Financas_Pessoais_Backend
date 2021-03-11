@@ -70,7 +70,9 @@ class AuthController extends Controller {
   }
 
   public async validarToken() {
-    const result = { error: false };
+    const { userId } = (this.req as unknown) as { userId: number };
+    const result = await UserService.getUser(userId);
+
     return this.response({ statusCode: 200, body: result });
   }
 }

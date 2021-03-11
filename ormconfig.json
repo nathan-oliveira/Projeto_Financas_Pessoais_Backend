@@ -1,20 +1,19 @@
-{
-  "type": "postgres",
-  "host": "ec2-54-211-210-119.compute-1.amazonaws.com",
-  "port": 5432,
-  "username": "cfoenzkxqhvogdr",
-  "password": "63a0801f6fxca2ae65x4a19969fd83b03e7a8dd7186249a00d81f9cfcaa2aa1f42x",
-  "database": "devprnn4jta6nvx",
-  "synchronize": false,
-  "loggin": false,
-  "ssl": { "rejectUnauthorized": false },
-  "entities": [
-    "./app/models/*.{js,ts}"
-  ],
-  "migrations": [
-    "./app/database/migrations/*.ts"
-  ],
-  "cli": {
-    "migrationsDir": "./app/database/migrations"
+  {
+    "type": "mysql",
+    "host": "localhost",
+    "port": 3306,
+    "username": "root",
+    "password": "",
+    "database": "node_react",
+    "synchronize": false,
+    "loggin": false,
+    "entities": [
+      "./app/models/*.{js,ts}"
+    ],
+    "migrations": [
+      "./app/database/migrations/*.ts"
+    ],
+    "cli": {
+      "migrationsDir": "./app/database/migrations"
+    }
   }
-}

@@ -19,6 +19,8 @@ class BusinessController extends Controller {
     const { userId } = (this.req as unknown) as { userId: number };
     const dados = { ...this.req.body, userId } as IBusiness;
 
+    console.log(this.req.body)
+
     try {
       const result = await BusinessService.save(dados);
       return this.response({ statusCode: 200, body: result });
