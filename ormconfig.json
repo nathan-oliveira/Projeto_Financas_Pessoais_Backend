@@ -1,12 +1,13 @@
   {
-    "type": "mysql",
-    "host": "localhost",
-    "port": 3306,
-    "username": "root",
-    "password": "",
-    "database": "node_react",
+    "type": "postgres",
+    "host": "ec2-54-211-210-149.compute-1.amazonaws.com",
+    "port": 5432,
+    "username": "cfoenzkqhvogdr",
+    "password": "63a0801f6fca2ae654a19969fd83b03e7a8dd7186249a00d81f9cfcaa2aa1f42",
+    "database": "devprnn4jta6nv",
     "synchronize": false,
     "loggin": false,
+    "ssl": { "rejectUnauthorized": false },
     "entities": [
       "./app/models/*.{js,ts}"
     ],
